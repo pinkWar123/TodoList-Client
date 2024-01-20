@@ -5,38 +5,38 @@ import * as formik from 'formik';
 import * as yup from 'yup';
 import { IconButton } from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
+import { LoginSocialFacebook } from 'reactjs-social-login';
 
-import * as loginRequest from '~/services/requests';
-import { setCookie } from '~/utils';
+import { loginRequest, profileRequest } from '~/services/requests';
+import { useState } from 'react';
+import schema from './schema';
+import { useAuthContext } from '~/context';
 
 const cx = classname.bind(styles);
 const { Formik } = formik;
 
-const schema = yup.object().shape({
-    username: yup
-        .string()
-        .min(6, 'Too short')
-        .max(20, 'Too long')
-        .required('You have to provide a username'),
-    password: yup
-        .string()
-        .min(6, 'Too short')
-        .max(20, 'Too long')
-        .required('You have to provide a password'),
-});
+const REDIRECT_URI = window.location.href;
 
 function Login() {
+    const { user, setUser } = useAuthContext();
     const navigate = useNavigate();
     const handleLogin = async (username, password) => {
         const credentials = { username, password };
         const data = await loginRequest.authenticateLocalUser(credentials);
         if (data) {
-            // setCookie('token', data.token, 1);
             console.log(data);
+            localStorage.setItem('access_token', data.token);
+            localStorage.setItem('refresh_token', data.refreshToken);
+            setUser(data.user);
             navigate('/');
         }
     };
-
+    const handleSocialLogin = async (socialId, provider, name) => {
+        const data = await loginRequest.authenticateSocialUser({ socialId, provider, name });
+        localStorage.setItem('access_token', data.token);
+        localStorage.setItem('refresh_token', data.refreshToken);
+        setUser(data.user);
+    };
     return (
         <div style={{ backgroundColor: 'blue' }}>
             <div className={cx('wrapper')}>
@@ -91,7 +91,20 @@ function Login() {
 
                             <Row>
                                 <Col className="col-6">
-                                    <IconButton.FacebookButton />
+                                    <LoginSocialFacebook
+                                        appId={process.env.REACT_APP_FACEBOOK_ID}
+                                        fieldsProfile="id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender"
+                                        onLoginStart={() => alert('Login start')}
+                                        onLogoutSuccess={() => alert('Logout success')}
+                                        redirect_uri={REDIRECT_URI}
+                                        onResolve={async ({ provider, data }) => {
+                                            await handleSocialLogin(data.id, provider, data.name);
+                                            navigate('/');
+                                        }}
+                                        onReject={(err) => console.log(err)}
+                                    >
+                                        <IconButton.FacebookButton />
+                                    </LoginSocialFacebook>
                                 </Col>
                                 <Col className="col-6">
                                     <IconButton.GoogleButton />
@@ -119,3 +132,4 @@ function Login() {
 }
 
 export default Login;
+//"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=3692071951121854&height=50&width=50&ext=1708340608&hash=Afq1zcETX7yW7GN07q2Z_8kmL5ETS1FXF1xRJgUXoBCI4g"

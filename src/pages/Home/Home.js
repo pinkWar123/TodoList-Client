@@ -1,5 +1,8 @@
+import { useAuthContext } from '~/context';
+
 function Home() {
-    return <>This is home page</>;
+    const { user } = useAuthContext();
+    return <div>{user._id}</div>;
 }
 
 export default Home;
