@@ -5,34 +5,29 @@ import * as formik from 'formik';
 import * as yup from 'yup';
 import { IconButton } from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
+import { LoginSocialFacebook } from 'reactjs-social-login';
 
 import * as loginRequest from '~/services/requests';
-import { setCookie } from '~/utils';
+import { useState } from 'react';
+import schema from './schema';
+import { useAuthContext } from '~/context';
 
 const cx = classname.bind(styles);
 const { Formik } = formik;
 
-const schema = yup.object().shape({
-    username: yup
-        .string()
-        .min(6, 'Too short')
-        .max(20, 'Too long')
-        .required('You have to provide a username'),
-    password: yup
-        .string()
-        .min(6, 'Too short')
-        .max(20, 'Too long')
-        .required('You have to provide a password'),
-});
+const REDIRECT_URI = window.location.href;
 
 function Login() {
+    const { user, setUser } = useAuthContext();
     const navigate = useNavigate();
     const handleLogin = async (username, password) => {
         const credentials = { username, password };
         const data = await loginRequest.authenticateLocalUser(credentials);
         if (data) {
-            // setCookie('token', data.token, 1);
             console.log(data);
+            localStorage.setItem('access_token', data.token);
+            localStorage.setItem('refresh_token', data.refreshToken);
+            setUser(data.user);
             navigate('/');
         }
     };
@@ -91,7 +86,17 @@ function Login() {
 
                             <Row>
                                 <Col className="col-6">
-                                    <IconButton.FacebookButton />
+                                    <LoginSocialFacebook
+                                        appId={process.env.REACT_APP_FACEBOOK_ID}
+                                        fieldsProfile="id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender"
+                                        onLoginStart={() => alert('Login start')}
+                                        onLogoutSuccess={() => alert('Logout success')}
+                                        redirect_uri={REDIRECT_URI}
+                                        onResolve={({ provider, data }) => {}}
+                                        onReject={(err) => console.log(err)}
+                                    >
+                                        <IconButton.FacebookButton />
+                                    </LoginSocialFacebook>
                                 </Col>
                                 <Col className="col-6">
                                     <IconButton.GoogleButton />
