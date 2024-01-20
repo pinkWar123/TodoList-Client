@@ -23,3 +23,13 @@ export const getSocialUserProfile = async ({ socialId, username, provider }) => 
         console.log(err);
     }
 };
+
+export const signUp = async ({ username, password, firstName, lastName }) => {
+    try {
+        const data = await request.post('/signup', { username, password, firstName, lastName });
+        return data;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
