@@ -1,2 +1,2 @@
-export * from './loginRequest';
-export * from './profileRequest';
+export * as loginRequest from './loginRequest';
+export * as profileRequest from './profileRequest';

@@ -7,7 +7,7 @@ import { IconButton } from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
 import { LoginSocialFacebook } from 'reactjs-social-login';
 
-import * as loginRequest from '~/services/requests';
+import { loginRequest, profileRequest } from '~/services/requests';
 import { useState } from 'react';
 import schema from './schema';
 import { useAuthContext } from '~/context';
@@ -31,7 +31,12 @@ function Login() {
             navigate('/');
         }
     };
-
+    const handleSocialLogin = async (socialId, provider, name) => {
+        const data = await loginRequest.authenticateSocialUser({ socialId, provider, name });
+        localStorage.setItem('access_token', data.token);
+        localStorage.setItem('refresh_token', data.refreshToken);
+        setUser(data.user);
+    };
     return (
         <div style={{ backgroundColor: 'blue' }}>
             <div className={cx('wrapper')}>
@@ -92,7 +97,10 @@ function Login() {
                                         onLoginStart={() => alert('Login start')}
                                         onLogoutSuccess={() => alert('Logout success')}
                                         redirect_uri={REDIRECT_URI}
-                                        onResolve={({ provider, data }) => {}}
+                                        onResolve={async ({ provider, data }) => {
+                                            await handleSocialLogin(data.id, provider, data.name);
+                                            navigate('/');
+                                        }}
                                         onReject={(err) => console.log(err)}
                                     >
                                         <IconButton.FacebookButton />
@@ -124,3 +132,4 @@ function Login() {
 }
 
 export default Login;
+//"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=3692071951121854&height=50&width=50&ext=1708340608&hash=Afq1zcETX7yW7GN07q2Z_8kmL5ETS1FXF1xRJgUXoBCI4g"

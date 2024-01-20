@@ -9,3 +9,17 @@ export const getUserProfile = async () => {
         console.log(err);
     }
 };
+
+export const getSocialUserProfile = async ({ socialId, username, provider }) => {
+    request.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
+    try {
+        const data = await request.post('/social', {
+            socialId,
+            username,
+            provider,
+        });
+        console.log(data);
+    } catch (err) {
+        console.log(err);
+    }
+};
