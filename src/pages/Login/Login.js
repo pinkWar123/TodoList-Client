@@ -7,17 +7,19 @@ import { useNavigate } from 'react-router-dom';
 import { LoginSocialFacebook } from 'reactjs-social-login';
 
 import { loginRequest } from '~/services/requests';
-import { loginSchema } from '~/utils/schema';
+import { loginSchema, signupSchema } from '~/utils/schema';
 import { useAuthContext } from '~/context';
 import { path } from '~/configs';
+import { useState } from 'react';
 
 const cx = classname.bind(styles);
 const { Formik } = formik;
 
 const REDIRECT_URI = window.location.href;
-const initialValues = { username: '', password: '' };
+// const initialValues = { username: '', password: '' };
 function Login() {
     const { user, setUser } = useAuthContext();
+    const [initialValues, setInitialValues] = useState(loginSchema);
     const navigate = useNavigate();
     const handleLoginResponse = (data) => {
         if (!data) {
@@ -27,7 +29,7 @@ function Login() {
         localStorage.setItem('access_token', data.token);
         localStorage.setItem('refresh_token', data.refreshToken);
         setUser(data.user);
-        navigate(path.home);
+        navigate('/');
     };
     const handleLogin = async (username, password) => {
         const credentials = { username, password };

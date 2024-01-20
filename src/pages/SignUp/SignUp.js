@@ -6,11 +6,21 @@ import { signupSchema } from '~/utils/schema';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { path } from '~/configs';
 import { useNavigate } from 'react-router-dom';
+import { signUp } from '~/services/requests/profileRequest';
 
 const cx = classNames.bind(styles);
 const { Formik } = formik;
 function SignUp() {
     const navigate = useNavigate();
+
+    const handleSignUp = async ({ username, password, firstName, lastName }) => {
+        const data = await signUp({ username, password, firstName, lastName });
+        console.log(data);
+        if (data) {
+            navigate('/login');
+        }
+    };
+
     return (
         <div className={cx('wrapper')}>
             <Formik
@@ -80,7 +90,7 @@ function SignUp() {
                             <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
                         </Form.Group>
 
-                        <Button className={cx('btn')} variant="warning">
+                        <Button className={cx('btn')} variant="warning" onClick={() => handleSignUp(values)}>
                             Sign up
                         </Button>
 
