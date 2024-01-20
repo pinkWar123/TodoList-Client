@@ -2,50 +2,48 @@ import styles from './Login.module.scss';
 import classname from 'classnames/bind';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import * as formik from 'formik';
-import * as yup from 'yup';
 import { IconButton } from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
 import { LoginSocialFacebook } from 'reactjs-social-login';
 
-import { loginRequest, profileRequest } from '~/services/requests';
-import { useState } from 'react';
-import schema from './schema';
+import { loginRequest } from '~/services/requests';
+import { loginSchema } from '~/utils/schema';
 import { useAuthContext } from '~/context';
+import { path } from '~/configs';
 
 const cx = classname.bind(styles);
 const { Formik } = formik;
 
 const REDIRECT_URI = window.location.href;
-
+const initialValues = { username: '', password: '' };
 function Login() {
     const { user, setUser } = useAuthContext();
     const navigate = useNavigate();
-    const handleLogin = async (username, password) => {
-        const credentials = { username, password };
-        const data = await loginRequest.authenticateLocalUser(credentials);
-        if (data) {
-            console.log(data);
-            localStorage.setItem('access_token', data.token);
-            localStorage.setItem('refresh_token', data.refreshToken);
-            setUser(data.user);
-            navigate('/');
+    const handleLoginResponse = (data) => {
+        if (!data) {
+            alert('Login failed');
+            return;
         }
-    };
-    const handleSocialLogin = async (socialId, provider, name) => {
-        const data = await loginRequest.authenticateSocialUser({ socialId, provider, name });
         localStorage.setItem('access_token', data.token);
         localStorage.setItem('refresh_token', data.refreshToken);
         setUser(data.user);
+        navigate(path.home);
+    };
+    const handleLogin = async (username, password) => {
+        const credentials = { username, password };
+        const data = await loginRequest.authenticateLocalUser(credentials);
+        handleLoginResponse(data);
+    };
+    const handleSocialLogin = async (socialId, provider, name) => {
+        const data = await loginRequest.authenticateSocialUser({ socialId, provider, name });
+        handleLoginResponse(data);
     };
     return (
         <div style={{ backgroundColor: 'blue' }}>
             <div className={cx('wrapper')}>
                 <Formik
-                    validationSchema={schema}
-                    initialValues={{
-                        username: '',
-                        password: '',
-                    }}
+                    validationSchema={loginSchema}
+                    initialValues={initialValues}
                     onSubmit={(val) => console.log(val)}
                 >
                     {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => (
@@ -121,7 +119,9 @@ function Login() {
 
                             <div className={cx('last-text-wrapper')}>
                                 <span>Not a member?</span>
-                                <span className={cx('signup-text')}>Signup now</span>
+                                <span className={cx('signup-text')} onClick={() => navigate(path.signup)}>
+                                    Signup now
+                                </span>
                             </div>
                         </Form>
                     )}
