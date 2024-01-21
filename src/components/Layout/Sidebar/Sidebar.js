@@ -5,6 +5,8 @@ import { cloneElement } from 'react';
 
 const cx = classNames.bind(styles);
 
+const isActive = (index, active) => index === 0 || index === active;
+
 function Sidebar({ active, setActive }) {
     return (
         <div className={cx('wrapper')} initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }}>
@@ -12,21 +14,18 @@ function Sidebar({ active, setActive }) {
                 {items.map((item, index) => (
                     <li
                         key={index}
-                        className={cx('item', { active: index === 0 || index === active })}
+                        className={cx('item', { active: isActive(index, active) })}
                         onClick={() => setActive(index)}
                     >
                         <div style={{ marginLeft: '12px' }}>
                             {cloneElement(item.icon, {
-                                fill:
-                                    active === index || index === 0
-                                        ? 'var(--product-library-navbar-on-selected-tint)'
-                                        : 'currentColor',
+                                fill: isActive(index, active)
+                                    ? 'var(--product-library-navbar-on-selected-tint)'
+                                    : 'currentColor',
                             })}
                         </div>
                         <div style={{ marginLeft: '18px' }}>
-                            <span className={cx('text', { active: index === 0 || index === active })}>
-                                {item.title}
-                            </span>
+                            <span className={cx('text', { active: isActive(index, active) })}>{item.title}</span>
                         </div>
                     </li>
                 ))}
