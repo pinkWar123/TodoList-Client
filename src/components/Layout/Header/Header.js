@@ -11,10 +11,8 @@ function Header({ toggleSidebar }) {
             <Container>
                 <IconButton.ToggleButton onClick={toggleSidebar} />
                 <NavbarBrand className={`${cx('logo')} me-auto`}>Qlogger</NavbarBrand>
-                <Form className="d-flex" style={{ float: 'left' }}>
-                    <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
-                    <Button variant="outline-success">Search</Button>
-                </Form>
+                <IconButton.LightButton />
+                <Button variant="secondary">Log out</Button>
             </Container>
         </Navbar>
     );

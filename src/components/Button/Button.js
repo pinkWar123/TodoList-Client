@@ -3,6 +3,7 @@ import { Icon } from '../Icon';
 
 import classNames from 'classnames/bind';
 import styles from './Button.module.scss';
+import { IconButton } from '.';
 
 const cx = classNames.bind(styles);
 
@@ -38,6 +39,14 @@ export const ToggleButton = ({ onClick, ...props }) => {
     return (
         <Button className={cx('rounded-btn', 'transparent')} onClick={onClick} {...props}>
             <Icon.ToggleIcon />
+        </Button>
+    );
+};
+
+export const LightButton = ({ onClick, ...props }) => {
+    return (
+        <Button className={cx('rounded-btn', 'transparent')} onClick={onClick} {...props}>
+            <Icon.BrightIcon />
         </Button>
     );
 };
