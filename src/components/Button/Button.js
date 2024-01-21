@@ -1,6 +1,12 @@
 import { Button } from 'react-bootstrap';
 import { Icon } from '../Icon';
 
+import classNames from 'classnames/bind';
+import styles from './Button.module.scss';
+import { IconButton } from '.';
+
+const cx = classNames.bind(styles);
+
 export const FacebookButton = ({ onClick, ...props }) => {
     return (
         <Button
@@ -25,6 +31,22 @@ export const GoogleButton = ({ onClick, ...props }) => {
         >
             <span style={{ color: 'black', fontSize: '12px' }}>Sign in with google</span>
             <Icon.GoogleIcon style={{ marginTop: '2px', marginLeft: '8px' }} />
+        </Button>
+    );
+};
+
+export const ToggleButton = ({ onClick, ...props }) => {
+    return (
+        <Button className={cx('rounded-btn', 'transparent')} onClick={onClick} {...props}>
+            <Icon.ToggleIcon />
+        </Button>
+    );
+};
+
+export const LightButton = ({ onClick, ...props }) => {
+    return (
+        <Button className={cx('rounded-btn', 'transparent')} onClick={onClick} {...props}>
+            <Icon.BrightIcon />
         </Button>
     );
 };

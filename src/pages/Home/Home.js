@@ -1,8 +1,10 @@
-import { useAuthContext } from '~/context';
+import classNames from 'classnames/bind';
+import styles from './Home.module.scss';
+
+const cx = classNames.bind(styles);
 
 function Home() {
-    const { user } = useAuthContext();
-    return <div>{user._id}</div>;
+    return <>Hello</>;
 }
 
 export default Home;
