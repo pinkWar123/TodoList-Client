@@ -36,7 +36,7 @@ export const GoogleButton = ({ onClick, ...props }) => {
 
 export const ToggleButton = ({ onClick, ...props }) => {
     return (
-        <Button className={cx('rounded-btn', 'transparent')}>
+        <Button className={cx('rounded-btn', 'transparent')} onClick={onClick} {...props}>
             <Icon.ToggleIcon />
         </Button>
     );

@@ -1,3 +1,4 @@
+import { path } from '~/configs';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
 import SignUp from '~/pages/SignUp';
@@ -5,15 +6,16 @@ import SignUp from '~/pages/SignUp';
 const routes = [
     {
         component: <Login />,
-        path: '/login',
+        path: path.login,
+        layout: null,
     },
     {
         component: <SignUp />,
-        path: '/signup',
+        path: path.signup,
     },
     {
         component: <Home />,
-        path: '*',
+        path: path.home,
     },
 ];
 

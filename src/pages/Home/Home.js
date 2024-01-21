@@ -1,9 +1,10 @@
-import { Header } from '~/components/Layout';
-import { useAuthContext } from '~/context';
+import classNames from 'classnames/bind';
+import styles from './Home.module.scss';
+
+const cx = classNames.bind(styles);
 
 function Home() {
-    // const { user } = useAuthContext();
-    return <Header />;
+    return <>Hello</>;
 }
 
 export default Home;

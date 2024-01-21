@@ -5,12 +5,11 @@ import { IconButton } from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
-function Header() {
-    const expand = 'lg';
+function Header({ toggleSidebar }) {
     return (
         <Navbar expand={false} className={cx('wrapper')}>
             <Container>
-                <IconButton.ToggleButton />
+                <IconButton.ToggleButton onClick={toggleSidebar} />
                 <NavbarBrand className={`${cx('logo')} me-auto`}>Qlogger</NavbarBrand>
                 <Form className="d-flex" style={{ float: 'left' }}>
                     <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
