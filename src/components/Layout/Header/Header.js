@@ -2,6 +2,7 @@ import { Button, Container, Nav, NavDropdown, Navbar, NavbarBrand, Offcanvas, Fo
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { IconButton } from '~/components/Button';
+import Profile from './Profile';
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +13,7 @@ function Header({ toggleSidebar }) {
                 <IconButton.ToggleButton onClick={toggleSidebar} />
                 <NavbarBrand className={`${cx('logo')} me-auto`}>Qlogger</NavbarBrand>
                 <IconButton.LightButton />
-                <Button variant="secondary">Log out</Button>
+                <Profile />
             </Container>
         </Navbar>
     );
