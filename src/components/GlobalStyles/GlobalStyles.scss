@@ -10,5 +10,16 @@
     --product-library-actionable-tertiary-hover-tint: #ffaaa1;
     --product-library-actionable-tertiary-disabled-tint: #ffaaa1;
     --text: #202020;
+    --text-secondary: #666;
     --fb-logo: #0866ff;
+}
+
+li {
+    list-style-type: none;
+}
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
 }
