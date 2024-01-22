@@ -2,6 +2,7 @@ import { Icon } from '~/components/Icon';
 import styles from './Today.module.scss';
 import classNames from 'classnames/bind';
 import ListTask from '~/components/ListTask';
+import AddTask from '~/components/AddTask';
 
 const cx = classNames.bind(styles);
 
@@ -30,6 +31,8 @@ function Today() {
                     <ListTask />
                 </li>
             </ul>
+
+            <AddTask />
         </div>
     );
 }

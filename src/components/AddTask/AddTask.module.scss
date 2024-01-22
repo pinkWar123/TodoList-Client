@@ -1,0 +1,55 @@
+.wrapper {
+    margin-top: 16px;
+    display: flex;
+    padding-bottom: 64px;
+    .text {
+        margin-left: 12px;
+        margin-top: -6px;
+        color: var(--text-secondary);
+        font-weight: 400;
+    }
+
+    &:hover {
+        .text {
+            color: var(--product-library-navbar-on-selected-tint);
+        }
+    }
+}
+
+.add-task-wrapper {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #666;
+    .task-name,
+    .desc {
+        border: 0;
+        box-shadow: none;
+    }
+
+    .task-name {
+        font-size: 14px;
+        &::placeholder {
+            color: #999;
+            font-weight: 700;
+        }
+    }
+
+    .desc {
+        font-size: 12px;
+    }
+}
+
+.footer {
+    padding-bottom: 12px;
+    float: right;
+    margin-right: 12px;
+}
+
+.btn {
+    padding: 2px 12px;
+}
+
+.btn-text {
+    font-size: 12px;
+    padding: 0;
+}
