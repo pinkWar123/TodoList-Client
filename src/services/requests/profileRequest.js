@@ -7,6 +7,7 @@ export const getUserProfile = async () => {
         console.log(data);
     } catch (err) {
         console.log(err);
+        return null;
     }
 };
 
