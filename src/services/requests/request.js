@@ -11,9 +11,21 @@ request.interceptors.response.use(
     (response) => response,
     async (err) => {
         if (err.response.status === 401) {
-            console.log('failed');
-            customHistory.push('/login');
-            return Promise.reject(err);
+            const refreshToken = localStorage.getItem('refresh_token');
+            try {
+                const response = await request.post('/login/refresh', {
+                    refreshToken,
+                });
+                if (!response) {
+                    customHistory.push('/login');
+                    return;
+                }
+                localStorage.setItem('refresh_token', response.data.refreshToken);
+                localStorage.setItem('access_token', response.data.token);
+            } catch (err) {
+                customHistory.push('/login');
+                return Promise.reject(err);
+            }
         }
     },
 );
