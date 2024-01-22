@@ -5,6 +5,7 @@ export const getUserProfile = async () => {
     try {
         const data = await request.get('/');
         console.log(data);
+        return data;
     } catch (err) {
         console.log(err);
         return null;

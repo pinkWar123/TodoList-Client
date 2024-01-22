@@ -1,0 +1,25 @@
+.wrapper {
+    margin-top: 4px;
+    margin-left: 12px;
+    width: 40px;
+    height: 40px;
+}
+
+.placeholder-img {
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.overlay-wrapper {
+    width: 250px;
+
+    .btn {
+        display: flex;
+        width: 100%;
+    }
+
+    .title {
+        margin-left: 12px;
+        font-size: 14px;
+    }
+}

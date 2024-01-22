@@ -5,14 +5,14 @@ import MainLayout from './components/Layout/MainLayout';
 import { useAuthContext } from './context';
 import { profileRequest } from './services/requests';
 function App() {
-    const { user, setUser } = useAuthContext();
+    const { setUser } = useAuthContext();
     useEffect(() => {
         const fetchUser = async () => {
             const user = await profileRequest.getUserProfile();
-            setUser(user);
+            setUser(user.data);
         };
         fetchUser();
-    }, [setUser, user]);
+    }, [setUser]);
     return (
         <Routes>
             {routes.map((route, index) => {
