@@ -3,3 +3,39 @@
     flex-direction: column;
     height: 100vh;
 }
+
+.sidebar {
+    width: 250px;
+}
+
+.offcanvas {
+    display: none;
+}
+
+.main-content {
+    margin-top: 80px;
+    margin-left: 64px;
+
+    &.noSidebar {
+        margin-left: 200px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .offcanvas {
+        width: 50% !important;
+        display: block;
+    }
+
+    .main-content {
+        margin-left: 0px;
+
+        &.noSidebar {
+            margin-left: 0;
+        }
+    }
+}
