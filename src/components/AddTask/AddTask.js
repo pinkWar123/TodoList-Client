@@ -32,6 +32,7 @@ function AddTask() {
                             onChange={(e) => setDescription(e.target.value)}
                             value={description}
                         />
+
                         <hr />
                         <div className={cx('footer')}>
                             <Button

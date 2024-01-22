@@ -14,23 +14,7 @@ function Today() {
                 <Icon.BorderedCheckIcon />
                 <div className={cx('num-task')}>9 tasks</div>
             </div>
-            <ul>
-                <li key={0} style={{ marginTop: '24px' }}>
-                    <ListTask />
-                </li>
-                <li key={1} style={{ marginTop: '24px' }}>
-                    <ListTask />
-                </li>
-                <li key={2} style={{ marginTop: '24px' }}>
-                    <ListTask />
-                </li>
-                <li key={3} style={{ marginTop: '24px' }}>
-                    <ListTask />
-                </li>
-                <li key={4} style={{ marginTop: '24px' }}>
-                    <ListTask />
-                </li>
-            </ul>
+            <ul></ul>
 
             <AddTask />
         </div>
