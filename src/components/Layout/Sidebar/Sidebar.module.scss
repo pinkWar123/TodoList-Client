@@ -1,5 +1,27 @@
 .wrapper {
     height: calc(100vh - 56px);
     width: 100%;
-    background-color: #d37777;
+    background-color: var(--product-library-navbar-idle-fill);
+}
+
+.item {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    padding: 6px 0;
+    color: black;
+
+    &.active {
+        background-color: var(--product-library-navbar-selected-fill);
+    }
+}
+
+.text {
+    color: var(--text);
+    font-weight: 400;
+
+    &.active {
+        color: var(--product-library-navbar-on-selected-tint);
+        font-weight: 600;
+    }
 }

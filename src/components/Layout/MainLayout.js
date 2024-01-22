@@ -10,6 +10,7 @@ const cx = classNames.bind(styles);
 
 function MainLayout({ children }) {
     const [showSidebar, toggleSidebar] = useState(false);
+    const [active, setActive] = useState(1);
     return (
         <div>
             <div className={cx('wrapper')}>
@@ -18,12 +19,12 @@ function MainLayout({ children }) {
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         {showSidebar && (
                             <motion.div
-                                style={{ width: '15%' }}
+                                style={{ width: '250px' }}
                                 initial={{ x: '-100%' }}
                                 animate={{ x: 0 }}
                                 exit={{ x: '-100%', opacity: 0 }}
                             >
-                                <Sidebar />
+                                <Sidebar active={active} setActive={setActive} />
                             </motion.div>
                         )}
                         {children}
