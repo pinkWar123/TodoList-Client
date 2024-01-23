@@ -26,6 +26,16 @@ function Today() {
         }
         return false;
     };
+    const handleRemoveTask = async (index) => {
+        const response = await taskRequest.removeTask({ _id: tasks[index]._id });
+        if (response) {
+            setTasks((prev) => {
+                if (prev.length > 0) {
+                    return prev.filter((_, _index) => _index !== index);
+                }
+            });
+        }
+    };
     return (
         <div>
             <h2>Today</h2>
@@ -36,7 +46,11 @@ function Today() {
             <ul>
                 {tasks?.map((task, index) => (
                     <li key={index}>
-                        <ListTask taskName={task.taskName} description={task.description} />
+                        <ListTask
+                            taskName={task.taskName}
+                            description={task.description}
+                            removeTask={() => handleRemoveTask(index)}
+                        />
                     </li>
                 ))}
             </ul>

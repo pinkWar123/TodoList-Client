@@ -4,13 +4,13 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-function ListTask({ taskName, description }) {
+function ListTask({ taskName, description, removeTask }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('drag-icon')}>
                 <Icon.DragIcon />
             </div>
-            <span className={cx('circle')}>
+            <span className={cx('circle')} onClick={removeTask}>
                 <div className={cx('check-icon')}>
                     <Icon.CheckIcon />
                 </div>
