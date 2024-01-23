@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-function ListTask() {
+function ListTask({ taskName, description }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('drag-icon')}>
@@ -17,7 +17,7 @@ function ListTask() {
             </span>
             <div className={cx('main-content')}>
                 <div className={cx('first-row')}>
-                    <div className={cx('title')}>Title</div>
+                    <div className={cx('title')}>{taskName}</div>
                     <div className={cx('first-row-icon')}>
                         <Icon.EditIcon />
                         <Icon.SetDayIcon />
@@ -25,7 +25,7 @@ function ListTask() {
                         <Icon.MoreIcon />
                     </div>
                 </div>
-                <div className={cx('desc')}>Description</div>
+                <div className={cx('desc')}>{description}</div>
             </div>
         </div>
     );

@@ -6,10 +6,16 @@ import { Button, Form } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
-function AddTask() {
+function AddTask({ addTask }) {
     const [showAddTask, setShowAddTask] = useState(false);
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
+    const handleAddTask = async () => {
+        const isAddingTaskSuccess = await addTask({ taskName, description });
+        if (isAddingTaskSuccess) {
+            setShowAddTask(false);
+        }
+    };
     return (
         <div className={cx('wrapper')} onClick={() => setShowAddTask(true)}>
             {!showAddTask ? (
@@ -45,7 +51,13 @@ function AddTask() {
                             >
                                 <span className={cx('btn-text')}>Cancel</span>
                             </Button>
-                            <Button variant="danger" className={cx('btn')} disabled={taskName === ''}>
+                            <Button
+                                variant="danger"
+                                className={cx('btn')}
+                                s
+                                disabled={taskName === ''}
+                                onClick={handleAddTask}
+                            >
                                 <span className={cx('btn-text')}>Add task</span>
                             </Button>
                         </div>
