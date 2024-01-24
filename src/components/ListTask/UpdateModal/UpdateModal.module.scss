@@ -1,0 +1,28 @@
+.modal {
+    width: 50vw !important;
+    max-width: none !important;
+}
+
+.comment-wrapper {
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+}
+
+.sec-column-wrapper {
+    flex: 1;
+    height: 600px;
+    background-color: var(--product-library-navbar-idle-fill);
+    padding: 12px;
+    color: var(--text-secondary);
+
+    .title {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .content {
+        font-size: 12px;
+        font-weight: 400;
+    }
+}

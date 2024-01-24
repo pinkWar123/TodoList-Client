@@ -5,11 +5,16 @@ import Comment from '~/components/Comment';
 import CombinedInput from '~/components/NoBorderInput/Inputs';
 import useTaskContext from '~/context/TaskContext/TaskConsumer';
 
+import styles from './UpdateModal.module.scss';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
+
 function UpdateModal({ show, onHide, index }) {
     const { tasks, setTasks } = useTaskContext();
     const [task, setCurrentTask] = useState(tasks[index]);
     return (
-        <Modal show={show} onHide={onHide} centered>
+        <Modal show={show} onHide={onHide} dialogClassName={cx('modal')} centered>
             <Modal.Header closeButton>
                 <div>Edit task</div>
             </Modal.Header>
@@ -26,11 +31,22 @@ function UpdateModal({ show, onHide, index }) {
                             }
                         />
                     </div>
-                    <div style={{ width: '90%', display: 'flex', margin: '0 auto' }}>
+                    <div className={cx('comment-wrapper')}>
                         <Comment />
                     </div>
                 </div>
-                <div style={{ flex: '1', backgroundColor: 'blue', height: '100px' }}></div>
+                <div className={cx('sec-column-wrapper')}>
+                    <div>
+                        <div className={cx('title')}>Due date</div>
+                        <div className={cx('content')}>22 Jan</div>
+                        <hr />
+                    </div>
+                    <div>
+                        <div>Priority</div>
+                        <div>P4</div>
+                    </div>
+                    <div>Labels</div>
+                </div>
             </div>
         </Modal>
     );
