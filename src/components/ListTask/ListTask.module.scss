@@ -1,7 +1,7 @@
 .wrapper {
     display: flex;
     cursor: pointer;
-
+    margin-top: 12px;
     .drag-icon {
         margin-left: -24px;
         margin-top: -6px;
@@ -10,7 +10,8 @@
     }
 
     &:hover {
-        .drag-icon {
+        .drag-icon,
+        .first-row-icon {
             display: block;
         }
     }
@@ -44,7 +45,7 @@
     width: 100%;
     margin-left: 12px;
     margin-top: -4px;
-    padding-bottom: 24px;
+    padding-bottom: 12px;
     border-bottom: 2px solid #eee;
     display: flex;
     flex-direction: column;
@@ -58,12 +59,6 @@
 
     .first-row-icon {
         display: none;
-    }
-
-    &:hover {
-        .first-row-icon {
-            display: block;
-        }
     }
 }
 

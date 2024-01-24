@@ -1,0 +1,17 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.input {
+    height: 30px;
+    width: 100%;
+    border-radius: 12px;
+    border: 0;
+    box-shadow: none;
+    &:focus,
+    &:active {
+        border: 0;
+        box-shadow: none;
+    }
+}

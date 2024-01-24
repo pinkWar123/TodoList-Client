@@ -1,13 +1,14 @@
-import Img from '~/components/Img';
 import styles from './Profile.module.scss';
 import classNames from 'classnames/bind';
 import { OverlayTrigger } from 'react-bootstrap';
 import Overlay from './Overlay';
-import { useEffect, useState } from 'react';
-import { profileRequest } from '~/services/requests';
 import { useAuthContext } from '~/context';
 
 const cx = classNames.bind(styles);
+
+function Avatar() {
+    return <img src="https://placehold.co/40" alt="avatar" className={cx('placeholder-img')} />;
+}
 
 function Profile() {
     const { user } = useAuthContext();
@@ -30,3 +31,4 @@ function Profile() {
 }
 
 export default Profile;
+export { Avatar };

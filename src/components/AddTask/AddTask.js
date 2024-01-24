@@ -3,16 +3,23 @@ import { Icon } from '../Icon';
 import styles from './AddTask.module.scss';
 import classNames from 'classnames/bind';
 import { Button, Form } from 'react-bootstrap';
+import useTaskContext from '~/context/TaskContext/TaskConsumer';
+import { taskRequest } from '~/services/requests';
 
 const cx = classNames.bind(styles);
 
-function AddTask({ addTask }) {
+function AddTask() {
     const [showAddTask, setShowAddTask] = useState(false);
-    const [taskName, setTaskName] = useState('');
-    const [description, setDescription] = useState('');
+    const { tasks, setTasks } = useTaskContext();
+
+    const [currentTask, setCurrentTask] = useState({});
+
     const handleAddTask = async () => {
-        const isAddingTaskSuccess = await addTask({ taskName, description });
-        if (isAddingTaskSuccess) {
+        const { taskName, description } = currentTask;
+        const response = await taskRequest.createNewTask({ taskName, description });
+        console.log('Add task:', response);
+        if (response) {
+            setTasks((prev) => [...prev, { taskName, description }]);
             setShowAddTask(false);
         }
     };
@@ -29,14 +36,14 @@ function AddTask({ addTask }) {
                         <Form.Control
                             placeholder="Task name"
                             className={cx('task-name')}
-                            onChange={(e) => setTaskName(e.target.value)}
-                            value={taskName}
+                            onChange={(e) => setCurrentTask((prev) => ({ ...prev, taskName: e.target.value }))}
+                            value={currentTask.taskName}
                         />
                         <Form.Control
                             placeholder="Descriptions"
                             className={cx('desc')}
-                            onChange={(e) => setDescription(e.target.value)}
-                            value={description}
+                            onChange={(e) => setCurrentTask((prev) => ({ ...prev, description: e.target.value }))}
+                            value={currentTask.description}
                         />
 
                         <hr />
@@ -55,7 +62,7 @@ function AddTask({ addTask }) {
                                 variant="danger"
                                 className={cx('btn')}
                                 s
-                                disabled={taskName === ''}
+                                disabled={!currentTask.taskName || currentTask.taskName === ''}
                                 onClick={handleAddTask}
                             >
                                 <span className={cx('btn-text')}>Add task</span>
