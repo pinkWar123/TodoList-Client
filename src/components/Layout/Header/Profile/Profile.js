@@ -6,8 +6,8 @@ import { useAuthContext } from '~/context';
 
 const cx = classNames.bind(styles);
 
-function Avatar() {
-    return <img src="https://placehold.co/40" alt="avatar" className={cx('placeholder-img')} />;
+function Avatar({ size = '40' }) {
+    return <img src={`https://placehold.co/${size}`} alt="avatar" className={cx('placeholder-img')} />;
 }
 
 function Profile() {
@@ -24,7 +24,7 @@ function Profile() {
                     </div>
                 }
             >
-                <img src="https://placehold.co/40" alt="avatar" className={cx('placeholder-img')} />
+                <Avatar />
             </OverlayTrigger>
         </div>
     );

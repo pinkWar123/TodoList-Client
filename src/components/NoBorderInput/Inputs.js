@@ -11,7 +11,7 @@ function TaskNameInput({ placeholder = 'Task name', ...props }) {
 }
 
 function DescriptionInput({ placeholder = 'Descriptions', ...props }) {
-    return <Form.Control placeholder={placeholder} className={cx('desc')} {...props} />;
+    return <Form.Control placeholder={placeholder} className={cx('desc', { ...props.className })} {...props} />;
 }
 
 function CombinedInput({ taskName, description, onTaskNameChange, onDescriptionChange }) {

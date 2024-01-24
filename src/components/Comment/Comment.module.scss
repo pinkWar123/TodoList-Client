@@ -1,17 +1,54 @@
 .wrapper {
     display: flex;
     width: 100%;
+    margin-top: 24px;
 }
 
 .input {
     height: 30px;
     width: 100%;
     border-radius: 12px;
-    border: 0;
     box-shadow: none;
-    &:focus,
-    &:active {
-        border: 0;
+
+    &:focus {
         box-shadow: none;
+    }
+}
+
+.comment-wrapper {
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid #999;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    &:hover {
+        background-color: var(--product-library-navbar-hover-fill);
+    }
+    .primary-text {
+        margin-left: 12px;
+        font-size: 12px;
+        font-weight: 100;
+    }
+}
+
+.edit-comment-wrapper {
+    border: 1px solid #999;
+    width: 100%;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+
+    .editable {
+        outline: none;
+        padding-bottom: 40px;
+        font-size: 14px;
+        margin-left: 4px;
+    }
+
+    .btn-row {
+        display: flex;
+        justify-content: end;
     }
 }

@@ -9,12 +9,12 @@ function UpdateModal({ show, onHide, index }) {
     const { tasks, setTasks } = useTaskContext();
     const [task, setCurrentTask] = useState(tasks[index]);
     return (
-        <Modal show={show} onHide={onHide} style={{ height: '90vh' }} centered>
+        <Modal show={show} onHide={onHide} centered>
             <Modal.Header closeButton>
                 <div>Edit task</div>
             </Modal.Header>
-            <Modal.Body className="d-flex">
-                <div style={{ width: '80%' }}>
+            <div className="d-flex">
+                <div style={{ width: '70%' }}>
                     <div className="d-flex">
                         <CheckBox />
                         <CombinedInput
@@ -26,10 +26,12 @@ function UpdateModal({ show, onHide, index }) {
                             }
                         />
                     </div>
-                    <Comment style={{ width: '80%' }} />
+                    <div style={{ width: '90%', display: 'flex', margin: '0 auto' }}>
+                        <Comment />
+                    </div>
                 </div>
                 <div style={{ flex: '1', backgroundColor: 'blue', height: '100px' }}></div>
-            </Modal.Body>
+            </div>
         </Modal>
     );
 }

@@ -3,7 +3,7 @@ import styles from './Today.module.scss';
 import classNames from 'classnames/bind';
 import ListTask from '~/components/ListTask';
 import AddTask from '~/components/AddTask';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { taskRequest } from '~/services/requests';
 import useTaskContext from '~/context/TaskContext/TaskConsumer';
 
