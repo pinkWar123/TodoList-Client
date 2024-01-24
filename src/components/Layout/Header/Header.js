@@ -1,8 +1,8 @@
 import { Button, Container, Nav, NavDropdown, Navbar, NavbarBrand, Offcanvas, Form } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
-import { IconButton } from '~/components/Button';
 import Profile from './Profile';
+import { ToggleButton, LightButton } from '~/components/Button/IconButton';
 
 const cx = classNames.bind(styles);
 
@@ -10,9 +10,9 @@ function Header({ toggleSidebar }) {
     return (
         <Navbar expand={false} className={cx('wrapper')}>
             <Container>
-                <IconButton.ToggleButton onClick={toggleSidebar} />
+                <ToggleButton onClick={toggleSidebar} />
                 <NavbarBrand className={`${cx('logo')} me-auto`}>Qlogger</NavbarBrand>
-                <IconButton.LightButton />
+                <LightButton />
                 <Profile />
             </Container>
         </Navbar>

@@ -3,6 +3,7 @@ import styles from './NoBorderInput.module.scss';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { TextButton } from '../Button';
+import { CancelButton, ConfirmButton } from '../Button/TextButton';
 
 const cx = classNames.bind(styles);
 
@@ -26,8 +27,8 @@ function CombinedInput({ taskName, description, onTaskNameChange, onDescriptionC
             </div>
             {showBorder && (
                 <div className={cx('btn-row')}>
-                    <TextButton.CancelButton onClick={handleHideBorder} />
-                    <TextButton.ConfirmButton title="Save" onClick={handleHideBorder} />
+                    <CancelButton onClick={handleHideBorder} />
+                    <ConfirmButton title="Save" onClick={handleHideBorder} />
                 </div>
             )}
         </div>

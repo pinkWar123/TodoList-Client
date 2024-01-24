@@ -7,10 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import { LoginSocialFacebook } from 'reactjs-social-login';
 
 import { loginRequest } from '~/services/requests';
-import { loginSchema, signupSchema } from '~/utils/schema';
+import { loginSchema } from '~/utils/schema';
 import { useAuthContext } from '~/context';
 import { path } from '~/configs';
 import { useState } from 'react';
+import { FacebookButton, GoogleButton } from '~/components/Button/IconButton';
 
 const cx = classname.bind(styles);
 const { Formik } = formik;
@@ -103,11 +104,11 @@ function Login() {
                                         }}
                                         onReject={(err) => console.log(err)}
                                     >
-                                        <IconButton.FacebookButton />
+                                        <FacebookButton />
                                     </LoginSocialFacebook>
                                 </Col>
                                 <Col className="col-6">
-                                    <IconButton.GoogleButton />
+                                    <GoogleButton />
                                 </Col>
                             </Row>
 
