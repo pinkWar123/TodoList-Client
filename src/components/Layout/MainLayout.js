@@ -13,7 +13,6 @@ function MainLayout({ children }) {
     const [showSidebar, toggleSidebar] = useState(false);
     const [showOffcanvas, toggleOffcanvas] = useState(false);
     const [active, setActive] = useState(1);
-
     return (
         <div>
             <div className={cx('wrapper')}>

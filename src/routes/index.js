@@ -1,7 +1,8 @@
 import { path } from '~/configs';
-import Home from '~/pages/Home';
+import TaskProvider from '~/context/TaskContext/TaskProvider';
 import Login from '~/pages/Login';
 import SignUp from '~/pages/SignUp';
+import Today from '~/pages/Today';
 
 const routes = [
     {
@@ -14,8 +15,12 @@ const routes = [
         path: path.signup,
     },
     {
-        component: <Home />,
-        path: path.home,
+        component: (
+            <TaskProvider>
+                <Today />
+            </TaskProvider>
+        ),
+        path: path.today,
     },
 ];
 

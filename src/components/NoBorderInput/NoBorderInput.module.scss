@@ -1,0 +1,35 @@
+.task-name,
+.desc {
+    border: 0;
+    box-shadow: none;
+
+    &:focus {
+        border: 0;
+        box-shadow: none;
+    }
+}
+
+.task-name {
+    font-size: 14px;
+    color: #999;
+    font-weight: 700;
+    &::placeholder {
+        color: #999;
+        font-weight: 700;
+    }
+}
+
+.desc {
+    font-size: 12px;
+}
+
+.border {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.btn-row {
+    display: flex;
+    justify-content: end;
+    margin-top: 6px;
+}
