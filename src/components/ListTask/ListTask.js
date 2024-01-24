@@ -9,7 +9,7 @@ import { taskRequest } from '~/services/requests';
 
 const cx = classNames.bind(styles);
 
-function ListTask({ index, removeTask }) {
+function ListTask({ index }) {
     const [updateModal, setUpdateModal] = useState(false);
     const { tasks, setTasks } = useTaskContext();
     const handleRemoveTask = async (index) => {
@@ -47,13 +47,7 @@ function ListTask({ index, removeTask }) {
                 </div>
             </div>
 
-            <UpdateModal
-                show={updateModal}
-                onHide={() => setUpdateModal(false)}
-                tasks={tasks}
-                setTasks={setTasks}
-                index={index}
-            />
+            <UpdateModal show={updateModal} onHide={() => setUpdateModal(false)} index={index} />
         </>
     );
 }

@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 function AddTask() {
     const [showAddTask, setShowAddTask] = useState(false);
-    const { tasks, setTasks } = useTaskContext();
+    const { setTasks } = useTaskContext();
 
     const [currentTask, setCurrentTask] = useState({});
 
