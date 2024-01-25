@@ -1,6 +1,9 @@
 import { Popover } from 'react-bootstrap';
 import { BrightIcon, NextWeekIcon, ThisWeekendIcon } from '../Icon/Icon';
-
+import Calendar from 'react-calendar';
+import './Calendar.css';
+import 'react-calendar/dist/Calendar.css';
+import { useState } from 'react';
 function DateItem({ title, icon }) {
     return (
         <div>
@@ -30,6 +33,7 @@ const items = [
 ];
 
 function DatePickerContent() {
+    const [date, setDate] = useState(new Date());
     return (
         <Popover id="popover" style={{ width: '250px' }}>
             <Popover.Header>22 Jan</Popover.Header>
@@ -38,6 +42,7 @@ function DatePickerContent() {
                     <DateItem title={item.title} icon={item.icon} key={index} />
                 ))}
                 <hr />
+                <Calendar onChange={setDate} value={date} />
             </Popover.Body>
         </Popover>
     );
