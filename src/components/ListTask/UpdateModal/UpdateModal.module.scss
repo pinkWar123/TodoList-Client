@@ -22,7 +22,20 @@
     }
 
     .content {
+        cursor: pointer;
         font-size: 12px;
         font-weight: 400;
+        margin-top: 8px;
+        display: flex;
+        &.text {
+            text-align: center;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .modal {
+        width: 80vw;
+        max-width: none !important;
     }
 }

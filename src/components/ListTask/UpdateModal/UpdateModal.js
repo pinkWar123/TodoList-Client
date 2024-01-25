@@ -7,6 +7,7 @@ import useTaskContext from '~/context/TaskContext/TaskConsumer';
 
 import styles from './UpdateModal.module.scss';
 import classNames from 'classnames/bind';
+import DatePicker from '~/components/DatePicker';
 
 const cx = classNames.bind(styles);
 
@@ -36,11 +37,7 @@ function UpdateModal({ show, onHide, index }) {
                     </div>
                 </div>
                 <div className={cx('sec-column-wrapper')}>
-                    <div>
-                        <div className={cx('title')}>Due date</div>
-                        <div className={cx('content')}>22 Jan</div>
-                        <hr />
-                    </div>
+                    <DatePicker />
                     <div>
                         <div>Priority</div>
                         <div>P4</div>

@@ -291,3 +291,41 @@ export const LogoutIcon = () => {
         </svg>
     );
 };
+
+export const ThisWeekendIcon = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            ariaHidden="true"
+            focusable="false"
+        >
+            <path
+                fill="currentColor"
+                d="M16 6a3 3 0 0 1 3 3v1h.1c1 0 1.9 1 1.9 2v4c0 1-.8 2-1.9 2H18v.5a.5.5 0 0 1-1 0V18H7v.5a.5.5 0 0 1-1 0V18H5a2 2 0 0 1-2-2v-4c0-1.1.9-2 2-2V9a3 3 0 0 1 3-3h8zm3 5a1 1 0 0 0-1 .9V15H6v-3a1 1 0 0 0-2-.1V16c0 .5.4 1 .9 1H19a1 1 0 0 0 1-.9V12c0-.6-.4-1-1-1zm-3-4H8c-1 0-2 .8-2 1.9v1.4c.6.3 1 1 1 1.7v2h10v-2a2 2 0 0 1 1-1.7V9c0-1-.8-2-1.9-2H16z"
+            ></path>
+        </svg>
+    );
+};
+
+export const NextWeekIcon = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            focusable="false"
+        >
+            <path
+                fill="currentColor"
+                fillRule="evenodd"
+                d="M18 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2ZM5 6a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6Zm8.354 4.647a.5.5 0 0 0-.708.707l1.647 1.647H8.5a.5.5 0 1 0 0 1h5.793l-1.647 1.646a.5.5 0 0 0 .708.707l2.5-2.5a.5.5 0 0 0 0-.707l-2.5-2.5ZM7 8a.5.5 0 0 0 0 1h10a.5.5 0 0 0 0-1H7Z"
+                clipRule="evenodd"
+            ></path>
+        </svg>
+    );
+};
