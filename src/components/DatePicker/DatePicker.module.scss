@@ -1,15 +1,27 @@
-.title {
-    font-size: 14px;
-    font-weight: 600;
+:root {
+    --product-library-schedule-next-week-fill: #692ec2;
+    --product-library-schedule-next-week-tint: #692ec2;
+    --product-library-schedule-no-date-fill: #b8b8b8;
+    --product-library-schedule-no-date-tint: grey;
+    --product-library-schedule-overdue-fill: #ca4c3e;
+    --product-library-schedule-overdue-tint: #d1453b;
+    --product-library-schedule-postpone-fill: #246fe0;
+    --product-library-schedule-postpone-tint: #246fe0;
+    --product-library-schedule-today-fill: #4b9244;
+    --product-library-schedule-today-tint: #058527;
+    --product-library-schedule-tomorrow-fill: #ad6200;
+    --product-library-schedule-tomorrow-tint: #ad6200;
+    --product-library-schedule-weekend-fill: #246fe0;
+    --product-library-schedule-weekend-tint: #246fe0;
 }
 
-.content {
+.wrapper {
+    padding: 2px 0;
     cursor: pointer;
-    font-size: 12px;
-    font-weight: 400;
-    margin-top: 8px;
-    display: flex;
-    &.text {
-        text-align: center;
+    .title {
+        margin-left: 12px;
+    }
+    &:hover {
+        background-color: #eee;
     }
 }

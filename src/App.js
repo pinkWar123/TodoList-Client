@@ -1,18 +1,20 @@
 import { Fragment, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import routes from '~/routes';
 import MainLayout from './components/Layout/MainLayout';
 import { useAuthContext } from './context';
 import { profileRequest } from './services/requests';
 function App() {
     const { setUser } = useAuthContext();
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchUser = async () => {
             const user = await profileRequest.getUserProfile();
-            setUser(user.data);
+            if (!user) navigate('/login');
+            else setUser(user.data);
         };
         fetchUser();
-    }, [setUser]);
+    }, [setUser, navigate]);
     return (
         <Routes>
             {routes.map((route, index) => {

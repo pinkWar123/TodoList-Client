@@ -10,7 +10,7 @@ import { Offcanvas } from 'react-bootstrap';
 const cx = classNames.bind(styles);
 
 function MainLayout({ children }) {
-    const [showSidebar, toggleSidebar] = useState(false);
+    const [showSidebar, toggleSidebar] = useState(true);
     const [showOffcanvas, toggleOffcanvas] = useState(false);
     const [active, setActive] = useState(1);
     return (
