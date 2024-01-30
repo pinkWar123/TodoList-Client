@@ -2,7 +2,6 @@ import styles from './Login.module.scss';
 import classname from 'classnames/bind';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import * as formik from 'formik';
-import { IconButton } from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
 import { LoginSocialFacebook } from 'reactjs-social-login';
 
@@ -10,8 +9,9 @@ import { loginRequest } from '~/services/requests';
 import { loginSchema } from '~/utils/schema';
 import { useAuthContext } from '~/context';
 import { path } from '~/configs';
-import { useState } from 'react';
 import { FacebookButton, GoogleButton } from '~/components/Button/IconButton';
+import ConfirmModal from '~/components/ConfirmModal';
+import { useState } from 'react';
 
 const cx = classname.bind(styles);
 const { Formik } = formik;
@@ -20,11 +20,11 @@ const REDIRECT_URI = window.location.href;
 // const initialValues = { username: '', password: '' };
 function Login() {
     const { user, setUser } = useAuthContext();
-    const [initialValues, setInitialValues] = useState(loginSchema);
+    const [showConfirmModal, toggleConfirmModal] = useState(false);
     const navigate = useNavigate();
     const handleLoginResponse = (data) => {
         if (!data) {
-            alert('Login failed');
+            toggleConfirmModal(true);
             return;
         }
         localStorage.setItem('access_token', data.token);
@@ -46,7 +46,7 @@ function Login() {
             <div className={cx('wrapper')}>
                 <Formik
                     validationSchema={loginSchema}
-                    initialValues={initialValues}
+                    initialValues={{ username: '', password: '' }}
                     onSubmit={(val) => console.log(val)}
                 >
                     {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => (
@@ -130,6 +130,17 @@ function Login() {
                     )}
                 </Formik>
             </div>
+            <ConfirmModal
+                show={showConfirmModal}
+                onHide={() => toggleConfirmModal(false)}
+                onConfirm={() => {
+                    navigate('/signup');
+                }}
+                header="Log in failed"
+                body="Your account does not exist. If you have not had an accout yet, please sign up"
+                cancelTitle="Try again"
+                confirmTitle="Sign up"
+            />
         </div>
     );
 }

@@ -1,3 +1,5 @@
+import { forwardRef } from 'react';
+
 export const FacebookIcon = ({ width = 14, height = 14, style }) => {
     return (
         <svg viewBox="0 0 36 36" fill="currentColor" height={height} width={width} style={style}>
@@ -44,9 +46,9 @@ export const ToggleIcon = ({ width = '24', height = '24' }) => {
     );
 };
 
-export const BrightIcon = ({ width = '24', height = '24' }) => {
+export const BrightIcon = ({ width = '24', height = '24', fill = 'currentColor', ...props }) => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill="currentColor" viewBox="0 0 16 16">
+        <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill={fill} viewBox="0 0 16 16">
             <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
         </svg>
     );
@@ -100,12 +102,12 @@ export const TodayIcon = ({ fill = 'currentColor' }) => {
                     d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H6zm1 3h10a.5.5 0 1 1 0 1H7a.5.5 0 0 1 0-1z"
                 ></path>
                 <text
-                    font-family="-apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
-                    font-size="9"
+                    fontFamily="-apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
+                    fontSize="9"
                     transform="translate(4 2)"
-                    font-weight="500"
+                    fontWeight="500"
                 >
-                    <tspan x="8" y="15" text-anchor="middle">
+                    <tspan x="8" y="15" textAnchor="middle">
                         21
                     </tspan>
                 </text>
@@ -174,7 +176,7 @@ export const BorderedCheckIcon = () => {
             height="16"
             fill="none"
             viewBox="0 0 16 16"
-            ariaHidden="true"
+            aria-hidden="true"
         >
             <path
                 fill="currentColor"
@@ -240,17 +242,19 @@ export const CommentIcon = () => {
     );
 };
 
-export const MoreIcon = () => {
+export const MoreIcon = forwardRef((props, ref) => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-            <g fill="none" stroke="currentColor" strokeLinecap="round" transform="translate(3 10)">
-                <circle cx="2" cy="2" r="2"></circle>
-                <circle cx="9" cy="2" r="2"></circle>
-                <circle cx="16" cy="2" r="2"></circle>
-            </g>
-        </svg>
+        <div ref={ref}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" {...props}>
+                <g fill="none" stroke="currentColor" strokeLinecap="round" transform="translate(3 10)">
+                    <circle cx="2" cy="2" r="2"></circle>
+                    <circle cx="9" cy="2" r="2"></circle>
+                    <circle cx="16" cy="2" r="2"></circle>
+                </g>
+            </svg>
+        </div>
     );
-};
+});
 
 export const DragIcon = () => {
     return (
@@ -286,6 +290,73 @@ export const LogoutIcon = () => {
                 <path
                     fill="currentColor"
                     d="m12.8 11-2.15-2.15a.5.5 0 1 1 .7-.7L14 10.79a1 1 0 0 1 0 1.42l-2.65 2.64a.5.5 0 0 1-.7-.7L12.79 12H4.5a.5.5 0 0 1 0-1h8.3z"
+                ></path>
+            </g>
+        </svg>
+    );
+};
+
+export const ThisWeekendIcon = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            ariaHidden="true"
+            focusable="false"
+        >
+            <path
+                fill="currentColor"
+                d="M16 6a3 3 0 0 1 3 3v1h.1c1 0 1.9 1 1.9 2v4c0 1-.8 2-1.9 2H18v.5a.5.5 0 0 1-1 0V18H7v.5a.5.5 0 0 1-1 0V18H5a2 2 0 0 1-2-2v-4c0-1.1.9-2 2-2V9a3 3 0 0 1 3-3h8zm3 5a1 1 0 0 0-1 .9V15H6v-3a1 1 0 0 0-2-.1V16c0 .5.4 1 .9 1H19a1 1 0 0 0 1-.9V12c0-.6-.4-1-1-1zm-3-4H8c-1 0-2 .8-2 1.9v1.4c.6.3 1 1 1 1.7v2h10v-2a2 2 0 0 1 1-1.7V9c0-1-.8-2-1.9-2H16z"
+            ></path>
+        </svg>
+    );
+};
+
+export const NextWeekIcon = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            focusable="false"
+        >
+            <path
+                fill="currentColor"
+                fillRule="evenodd"
+                d="M18 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2ZM5 6a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6Zm8.354 4.647a.5.5 0 0 0-.708.707l1.647 1.647H8.5a.5.5 0 1 0 0 1h5.793l-1.647 1.646a.5.5 0 0 0 .708.707l2.5-2.5a.5.5 0 0 0 0-.707l-2.5-2.5ZM7 8a.5.5 0 0 0 0 1h10a.5.5 0 0 0 0-1H7Z"
+                clipRule="evenodd"
+            ></path>
+        </svg>
+    );
+};
+
+export const CopyIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" aria-hidden="true">
+            <path
+                fill="currentColor"
+                fillRule="evenodd"
+                d="M7.268 5H18a1 1 0 0 1 1 1v10.732A2 2 0 0 0 20 15V6a2 2 0 0 0-2-2H9a2 2 0 0 0-1.732 1ZM15 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2ZM5 9a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9Zm3 4H7v1h1v-1Zm2 0h1v1h-1v-1Zm4 0h-1v1h1v-1Z"
+                clipRule="evenodd"
+            ></path>
+        </svg>
+    );
+};
+
+export const DeleteIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true">
+            <g fill="none" fillRule="evenodd">
+                <path d="M0 0h24v24H0z"></path>
+                <rect width="14" height="1" x="5" y="6" fill="currentColor" rx="0.5"></rect>
+                <path fill="currentColor" d="M10 9h1v8h-1V9zm3 0h1v8h-1V9z"></path>
+                <path
+                    stroke="currentColor"
+                    d="M17.5 6.5h-11V18A1.5 1.5 0 0 0 8 19.5h8a1.5 1.5 0 0 0 1.5-1.5V6.5zm-9 0h7V5A1.5 1.5 0 0 0 14 3.5h-4A1.5 1.5 0 0 0 8.5 5v1.5z"
                 ></path>
             </g>
         </svg>

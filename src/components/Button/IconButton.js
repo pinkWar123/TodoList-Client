@@ -50,3 +50,11 @@ export const LightButton = ({ onClick, ...props }) => {
         </Button>
     );
 };
+
+export const MoreButton = ({ onClick, ...props }) => {
+    return (
+        <Button className={cx('rounded-btn', 'transparent')} onClick={onClick} {...props}>
+            <Icon.MoreIcon />
+        </Button>
+    );
+};

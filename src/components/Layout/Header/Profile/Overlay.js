@@ -1,11 +1,10 @@
-import { useAuthContext } from '~/context';
 import styles from './Profile.module.scss';
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
-import { profileRequest } from '~/services/requests';
-import { Button, Modal, Popover, PopoverBody, PopoverHeader } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Modal, Popover } from 'react-bootstrap';
 import { Icon } from '~/components/Icon';
 import { useNavigate } from 'react-router-dom';
+import { CancelButton, ConfirmButton } from '~/components/Button/TextButton';
 
 const cx = classNames.bind(styles);
 
@@ -25,24 +24,19 @@ function Overlay({ profile }) {
                     <img src="https://placehold.co/20" alt="avatar" className={cx('placeholder-img')} />
                     <div className={cx('title')}>{profile.name}</div>
                 </Button>
-                <Button variant="light" className={cx('btn')} onClick={() => setExitModal(true)}>
+                <Button variant="light" className={cx('btn')} onClick={handleLogOut}>
                     <Icon.LogoutIcon />
                     <div className={cx('title')}>Logout</div>
                 </Button>
             </Popover>
-
             <Modal show={showExitModal} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Log out</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Are you sure to leave?</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleLogOut}>
-                        Yes
-                    </Button>
+                    <CancelButton />
+                    <ConfirmButton title="Yes" />
                 </Modal.Footer>
             </Modal>
         </div>
