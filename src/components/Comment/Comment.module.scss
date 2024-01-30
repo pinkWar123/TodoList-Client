@@ -57,11 +57,13 @@
 .comment-item--wrapper {
     display: flex;
     margin-top: 12px;
-    padding: 6px 0;
+    padding: 12px 0;
     cursor: pointer;
+
     .content {
         margin-left: 12px;
         margin-top: -6px;
+        flex: 1;
     }
 
     .name {
@@ -76,7 +78,41 @@
         color: var(--text-secondary);
     }
 
+    .name,
+    .createdAt {
+        align-self: center;
+    }
+
     .text-content {
         font-size: 12px;
+    }
+
+    .icon {
+        display: none;
+        &.show {
+            display: block;
+        }
+    }
+
+    &:hover {
+        .icon {
+            display: block;
+        }
+    }
+}
+
+.menu-wrapper {
+    width: 250px;
+    .menu-item {
+        display: flex;
+        cursor: pointer;
+        padding: 4px;
+        font-size: 14px;
+        &:hover {
+            background-color: #eee;
+        }
+        .title {
+            margin-left: 8px;
+        }
     }
 }

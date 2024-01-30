@@ -1,3 +1,5 @@
+import { forwardRef } from 'react';
+
 export const FacebookIcon = ({ width = 14, height = 14, style }) => {
     return (
         <svg viewBox="0 0 36 36" fill="currentColor" height={height} width={width} style={style}>
@@ -100,12 +102,12 @@ export const TodayIcon = ({ fill = 'currentColor' }) => {
                     d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H6zm1 3h10a.5.5 0 1 1 0 1H7a.5.5 0 0 1 0-1z"
                 ></path>
                 <text
-                    font-family="-apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
-                    font-size="9"
+                    fontFamily="-apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
+                    fontSize="9"
                     transform="translate(4 2)"
-                    font-weight="500"
+                    fontWeight="500"
                 >
-                    <tspan x="8" y="15" text-anchor="middle">
+                    <tspan x="8" y="15" textAnchor="middle">
                         21
                     </tspan>
                 </text>
@@ -174,7 +176,7 @@ export const BorderedCheckIcon = () => {
             height="16"
             fill="none"
             viewBox="0 0 16 16"
-            ariaHidden="true"
+            aria-hidden="true"
         >
             <path
                 fill="currentColor"
@@ -240,17 +242,19 @@ export const CommentIcon = () => {
     );
 };
 
-export const MoreIcon = () => {
+export const MoreIcon = forwardRef((props, ref) => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-            <g fill="none" stroke="currentColor" strokeLinecap="round" transform="translate(3 10)">
-                <circle cx="2" cy="2" r="2"></circle>
-                <circle cx="9" cy="2" r="2"></circle>
-                <circle cx="16" cy="2" r="2"></circle>
-            </g>
-        </svg>
+        <div ref={ref}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" {...props}>
+                <g fill="none" stroke="currentColor" strokeLinecap="round" transform="translate(3 10)">
+                    <circle cx="2" cy="2" r="2"></circle>
+                    <circle cx="9" cy="2" r="2"></circle>
+                    <circle cx="16" cy="2" r="2"></circle>
+                </g>
+            </svg>
+        </div>
     );
-};
+});
 
 export const DragIcon = () => {
     return (
@@ -326,6 +330,35 @@ export const NextWeekIcon = () => {
                 d="M18 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2ZM5 6a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6Zm8.354 4.647a.5.5 0 0 0-.708.707l1.647 1.647H8.5a.5.5 0 1 0 0 1h5.793l-1.647 1.646a.5.5 0 0 0 .708.707l2.5-2.5a.5.5 0 0 0 0-.707l-2.5-2.5ZM7 8a.5.5 0 0 0 0 1h10a.5.5 0 0 0 0-1H7Z"
                 clipRule="evenodd"
             ></path>
+        </svg>
+    );
+};
+
+export const CopyIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" aria-hidden="true">
+            <path
+                fill="currentColor"
+                fillRule="evenodd"
+                d="M7.268 5H18a1 1 0 0 1 1 1v10.732A2 2 0 0 0 20 15V6a2 2 0 0 0-2-2H9a2 2 0 0 0-1.732 1ZM15 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2ZM5 9a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9Zm3 4H7v1h1v-1Zm2 0h1v1h-1v-1Zm4 0h-1v1h1v-1Z"
+                clipRule="evenodd"
+            ></path>
+        </svg>
+    );
+};
+
+export const DeleteIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true">
+            <g fill="none" fillRule="evenodd">
+                <path d="M0 0h24v24H0z"></path>
+                <rect width="14" height="1" x="5" y="6" fill="currentColor" rx="0.5"></rect>
+                <path fill="currentColor" d="M10 9h1v8h-1V9zm3 0h1v8h-1V9z"></path>
+                <path
+                    stroke="currentColor"
+                    d="M17.5 6.5h-11V18A1.5 1.5 0 0 0 8 19.5h8a1.5 1.5 0 0 0 1.5-1.5V6.5zm-9 0h7V5A1.5 1.5 0 0 0 14 3.5h-4A1.5 1.5 0 0 0 8.5 5v1.5z"
+                ></path>
+            </g>
         </svg>
     );
 };
