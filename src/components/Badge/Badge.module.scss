@@ -1,0 +1,9 @@
+.wrapper {
+    border: 1px solid blue;
+    border-radius: 8px;
+    padding: 0 8px;
+
+    &:hover {
+        background-color: #eee;
+    }
+}

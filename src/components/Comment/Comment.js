@@ -7,22 +7,21 @@ import { CancelButton, ConfirmButton } from '../Button/TextButton';
 import { commentRequest } from '~/services/requests';
 import CommentList from './CommentList';
 import { useAuthContext } from '~/context';
+import EditComment from './EditComment';
 const cx = classNames.bind(styles);
 
 function Comment({ taskId, ...props }) {
     const { user } = useAuthContext();
-    const [comment, setComment] = useState('');
     const [editComment, setEditComment] = useState(false);
     const [commentList, setCommentList] = useState([]);
 
     const handleShowComment = () => setEditComment(true);
     const handleHideComment = () => setEditComment(false);
-    const handlePostComment = async () => {
+    const handlePostComment = async (comment) => {
         const data = await commentRequest.postComments({ content: comment, taskId, authorName: user.name });
         if (data) {
             console.log(data);
             setCommentList((prev) => [...prev, data]);
-            setComment('');
         }
     };
 
@@ -36,7 +35,7 @@ function Comment({ taskId, ...props }) {
     }, [taskId]);
     return (
         <>
-            <CommentList commentList={commentList} taskId={taskId} />
+            <CommentList commentList={commentList} setCommentList={setCommentList} taskId={taskId} />
             <div className={cx('wrapper')}>
                 {!editComment && <Avatar size="30" />}
                 {!editComment ? (
@@ -44,19 +43,11 @@ function Comment({ taskId, ...props }) {
                         <div className={cx('primary-text')}>Comment</div>
                     </div>
                 ) : (
-                    <div className={cx('edit-comment-wrapper')}>
-                        <div
-                            contentEditable={true}
-                            role="textbox"
-                            aria-multiline
-                            className={cx('editable')}
-                            onInput={(e) => setComment(e.target.textContent)}
-                        ></div>
-                        <div className={cx('btn-row')}>
-                            <CancelButton onClick={handleHideComment} />
-                            <ConfirmButton title="Comment" onClick={handlePostComment} />
-                        </div>
-                    </div>
+                    <EditComment
+                        initialValue=""
+                        onCancel={handleHideComment}
+                        onSubmit={(comment) => handlePostComment(comment)}
+                    />
                 )}
             </div>
         </>

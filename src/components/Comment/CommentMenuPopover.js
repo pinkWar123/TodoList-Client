@@ -5,31 +5,33 @@ import { CopyIcon, DeleteIcon, EditIcon } from '../Icon/Icon';
 
 const cx = classNames.bind(styles);
 
-const topItems = [
-    {
-        icon: <EditIcon />,
-        title: 'Edit',
-    },
-    {
-        icon: <CopyIcon />,
-        title: 'Copy comment',
-    },
-];
+function CommentMenuPopover({ commentDetail, toggleEditMode, handleCopyComment, handleDeleteComment }) {
+    const topItems = [
+        {
+            icon: <EditIcon />,
+            title: 'Edit',
+            onClick: toggleEditMode,
+        },
+        {
+            icon: <CopyIcon />,
+            title: 'Copy comment',
+            onClick: handleCopyComment,
+        },
+    ];
 
-const bottomItems = [
-    {
-        icon: <DeleteIcon />,
-        title: 'Delete',
-    },
-];
-
-function CommentMenuPopover() {
+    const bottomItems = [
+        {
+            icon: <DeleteIcon />,
+            title: 'Delete',
+            onClick: handleDeleteComment,
+        },
+    ];
     return (
         <Popover className={cx('menu-wrapper')}>
             <Popover.Body>
                 <ul>
                     {topItems.map((item, index) => (
-                        <li className={cx('menu-item')} key={`top-${index}`}>
+                        <li className={cx('menu-item')} key={`top-${index}`} onClick={item.onClick}>
                             {item.icon}
                             <div className={cx('title')}>{item.title}</div>
                         </li>
@@ -38,7 +40,12 @@ function CommentMenuPopover() {
                 <hr />
                 <ul>
                     {bottomItems.map((item, index) => (
-                        <li className={cx('menu-item')} key={`bottom-${index}`} style={{ color: 'red' }}>
+                        <li
+                            className={cx('menu-item')}
+                            key={`bottom-${index}`}
+                            style={{ color: 'red' }}
+                            onClick={item.onClick}
+                        >
                             {item.icon}
                             <div className={cx('title')}>{item.title}</div>
                         </li>
