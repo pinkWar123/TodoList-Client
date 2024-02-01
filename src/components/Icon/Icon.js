@@ -244,15 +244,13 @@ export const CommentIcon = () => {
 
 export const MoreIcon = forwardRef((props, ref) => {
     return (
-        <div ref={ref}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" {...props}>
-                <g fill="none" stroke="currentColor" strokeLinecap="round" transform="translate(3 10)">
-                    <circle cx="2" cy="2" r="2"></circle>
-                    <circle cx="9" cy="2" r="2"></circle>
-                    <circle cx="16" cy="2" r="2"></circle>
-                </g>
-            </svg>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" {...props} ref={ref}>
+            <g fill="none" stroke="currentColor" strokeLinecap="round" transform="translate(3 10)">
+                <circle cx="2" cy="2" r="2"></circle>
+                <circle cx="9" cy="2" r="2"></circle>
+                <circle cx="16" cy="2" r="2"></circle>
+            </g>
+        </svg>
     );
 });
 
@@ -362,3 +360,24 @@ export const DeleteIcon = () => {
         </svg>
     );
 };
+
+export const EmojiIcon = forwardRef((props, ref) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            ref={ref}
+            {...props}
+        >
+            <path
+                fill="currentColor"
+                fillRule="evenodd"
+                d="M20 1.5a.5.5 0 0 0-1 0V4h-2.5a.5.5 0 0 0 0 1H19v2.5a.5.5 0 0 0 1 0V5h2.5a.5.5 0 0 0 0-1H20V1.5ZM12 5a7 7 0 1 0 7 7 .5.5 0 0 1 1 0 8 8 0 1 1-8-8 .5.5 0 0 1 0 1Zm-2.5 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm6-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-6.49 3.6a.502.502 0 0 1 .499-.6h4.982c.322 0 .563.29.499.6-.287 1.388-1.533 2.4-2.99 2.4-1.457 0-2.703-1.012-2.99-2.4Z"
+                clipRule="evenodd"
+            ></path>
+        </svg>
+    );
+});
