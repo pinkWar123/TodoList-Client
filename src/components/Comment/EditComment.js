@@ -9,6 +9,7 @@ const cx = classNames.bind(styles);
 function EditComment({ initialValue, onCancel, onSubmit }) {
     const [comment, setComment] = useState(initialValue);
     const { editableRef, clearAndFocusEditableDiv } = useEditableRef(initialValue);
+
     return (
         <div className={cx('edit-comment-wrapper')}>
             <div
@@ -19,6 +20,7 @@ function EditComment({ initialValue, onCancel, onSubmit }) {
                 className={cx('editable')}
                 onInput={(e) => setComment(e.target.textContent)}
             ></div>
+
             <div className={cx('btn-row')}>
                 <CancelButton onClick={onCancel} />
                 <ConfirmButton

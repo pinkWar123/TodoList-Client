@@ -5,51 +5,18 @@ import styles from './Comment.module.scss';
 import classNames from 'classnames/bind';
 import CommentMenuPopover from './CommentMenuPopover';
 import { useState } from 'react';
-import { CancelButton, ConfirmButton } from '../Button/TextButton';
-import { commentRequest } from '~/services/requests';
 import { toast } from 'react-toastify';
 import EmojiPopover from './EmojiPopover';
 import EditComment from './EditComment';
+import { commentRequest } from '~/services/requests';
+import { convertCreatedAt } from '~/utils';
 
 const cx = classNames.bind(styles);
 
-// function EditComment({ value, toggleEditMode, commentId, setCommentList }) {
-//     const [comment, setComment] = useState(value);
-//     const handleUpdateComment = async () => {
-//         const response = await commentRequest.editComment({ content: comment, commentId });
-//         if (response.status === 200) {
-//             setCommentList(comment);
-//             toggleEditMode();
-//         }
-//     };
-//     return (
-//         <div className="w-100">
-//             <Form.Control
-//                 className={cx('border')}
-//                 autoFocus
-//                 value={comment}
-//                 onChange={(e) => setComment(e.target.value)}
-//             ></Form.Control>
-//             <div className={cx('btn-row')}>
-//                 <CancelButton onClick={toggleEditMode} />
-//                 <ConfirmButton title="Update" onClick={handleUpdateComment} />
-//             </div>
-//         </div>
-//     );
-// }
-
-function CommentItem({
-    showMenuButtons,
-    setActiveComment,
-    name,
-    createdAt,
-    commentDetail,
-    handleDeleteComment,
-    updateComment,
-}) {
+function CommentItem({ showMenuButtons, setActiveComment, commentDetail, handleDeleteComment, updateComment }) {
     const [isEditMode, setEditMode] = useState(false);
-    const [emojiList, setEmojiList] = useState([]);
-
+    const [emojiList, setEmojiList] = useState(commentDetail);
+    const [showEmoji, setShowEmoji] = useState(false);
     const toggleEditMode = () => {
         setEditMode((prev) => !prev);
     };
@@ -66,7 +33,14 @@ function CommentItem({
         return (
             <div className={`ms-auto ${cx('icon', { show: showMenuButtons })}`} onClick={setActiveComment}>
                 <div>
-                    <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={EmojiPopover()}>
+                    <OverlayTrigger
+                        trigger="click"
+                        rootClose
+                        placement="bottom"
+                        overlay={EmojiPopover(handleAddEmoji)}
+                        show={showEmoji}
+                        onToggle={() => setShowEmoji((prev) => !prev)}
+                    >
                         <EmojiIcon />
                     </OverlayTrigger>
                 </div>
@@ -91,10 +65,10 @@ function CommentItem({
     };
 
     const renderEmojis = () => {
-        return (
-            <>
-                <Badge pill className={cx('badge')}>
-                    <span>😀</span>
+        if (emojiList && emojiList.emojis)
+            return Object.entries(emojiList.emojis).map(([emoji, userIds], index) => (
+                <Badge pill className={cx('badge')} key={`emoji-${index}`}>
+                    <span>{emoji}</span>
                     <span
                         style={{
                             marginLeft: '6px',
@@ -103,11 +77,18 @@ function CommentItem({
                             fontSize: '12px',
                         }}
                     >
-                        1
+                        {userIds.length}
                     </span>
                 </Badge>
-            </>
-        );
+            ));
+    };
+
+    const handleAddEmoji = async (emoji) => {
+        const response = await commentRequest.postEmojis({ commentId: commentDetail._id, emoji });
+        if (response.status === 200) {
+            setEmojiList(response.data);
+        }
+        setShowEmoji((prev) => !prev);
     };
 
     return (
@@ -120,12 +101,12 @@ function CommentItem({
                         </div>
                         <div className={cx('content')}>
                             <div className="d-flex" style={{ width: '100%', textAlign: 'center', height: '30px' }}>
-                                <div className={cx('name')}>{name}</div>
-                                <div className={cx('createdAt')}>{createdAt}</div>
+                                <div className={cx('name')}>{commentDetail.authorName}</div>
+                                <div className={cx('createdAt')}>{convertCreatedAt(commentDetail.createdAt)}</div>
                                 {renderButtons()}
                             </div>
                             <div className={cx('text-content')}>{commentDetail.content}</div>
-                            <div style={{ display: 'flex' }}>{renderEmojis()}</div>
+                            <div style={{ display: 'flex', flexWrap: 'wrap' }}>{renderEmojis()}</div>
                         </div>
                     </div>
                 </>

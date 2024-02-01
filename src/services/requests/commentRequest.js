@@ -49,3 +49,17 @@ export const editComment = async ({ commentId, content }) => {
         return null;
     }
 };
+
+export const postEmojis = async ({ commentId, emoji }) => {
+    try {
+        const response = await request.post(endpoint + '/emoji', {
+            emoji,
+            commentId,
+        });
+        console.log(response);
+        return response;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
