@@ -9,6 +9,7 @@ function CommentList({ commentList, setCommentList, taskId }) {
         if (response && response.status === 200) {
             setCommentList((prev) => prev.filter((item, _index) => _index !== index));
         }
+        document.body.click();
     };
     return (
         <ul>

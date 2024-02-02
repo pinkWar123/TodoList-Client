@@ -4,6 +4,7 @@ import { UpcomingIcon } from '../Icon/Icon';
 import styles from './DatePicker.module.scss';
 import classNames from 'classnames/bind';
 import DatePickerContent from './DatePickerContent';
+import { forwardRef, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -12,19 +13,23 @@ const getDay = () => {
     return today.toLocaleDateString('en-US', { month: 'short', day: '2-digit' });
 };
 
-function DatePicker() {
+const DueDateDiv = forwardRef((props, ref) => {
+    return (
+        <div className={cx('content')} ref={ref} {...props}>
+            <span>
+                <UpcomingIcon />
+            </span>
+            <span className={cx('text')}>{getDay()}</span>
+        </div>
+    );
+});
+
+function DatePicker({ taskId }) {
     return (
         <div>
             <div className={cx('title')}>Due date</div>
-            <OverlayTrigger trigger="click" overlay={DatePickerContent()} placement="bottom">
-                <Button variant="light" className="w-100" style={{ textAlign: 'left' }}>
-                    <div className={cx('content')}>
-                        <span>
-                            <UpcomingIcon />
-                        </span>
-                        <span className={cx('text')}>{getDay()}</span>
-                    </div>
-                </Button>
+            <OverlayTrigger trigger="click" rootClose overlay={DatePickerContent({ taskId })} placement="bottom">
+                <DueDateDiv />
             </OverlayTrigger>
             <hr />
         </div>

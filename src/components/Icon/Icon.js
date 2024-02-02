@@ -242,7 +242,7 @@ export const CommentIcon = () => {
     );
 };
 
-export const MoreIcon = forwardRef((props, ref) => {
+export const MoreIcon = forwardRef(({ ...props }, ref) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" {...props} ref={ref}>
             <g fill="none" stroke="currentColor" strokeLinecap="round" transform="translate(3 10)">
@@ -279,7 +279,7 @@ export const PlusIcon = ({ ...props }) => {
 
 export const LogoutIcon = () => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ariaHidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true">
             <g fill="none" fillRule="evenodd">
                 <path
                     stroke="currentColor"
@@ -301,7 +301,7 @@ export const ThisWeekendIcon = () => {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            ariaHidden="true"
+            aria-hidden="true"
             focusable="false"
         >
             <path

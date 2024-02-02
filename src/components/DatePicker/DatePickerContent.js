@@ -3,10 +3,11 @@ import { BrightIcon, NextWeekIcon, ThisWeekendIcon } from '../Icon/Icon';
 import Calendar from 'react-calendar';
 import './Calendar.css';
 import 'react-calendar/dist/Calendar.css';
-import { useState } from 'react';
 
 import styles from './DatePicker.module.scss';
 import classNames from 'classnames/bind';
+import { dateRequest } from '~/services/requests';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -42,9 +43,14 @@ const items = [
     },
 ];
 
-function DatePickerContent() {
-    const [date, setDate] = useState(new Date());
-    console.log(date);
+function DatePickerContent({ taskId }) {
+    const handleUpdateDueDate = async (timestamp) => {
+        const response = await dateRequest.postDueDate({ taskId, timestamp });
+        document.body.click();
+        if (response && response.status === 200) {
+            toast.success('Update due date sucessfully');
+        } else toast.error('Update due date failed');
+    };
     return (
         <Popover id="popover" style={{ width: '250px' }}>
             <Popover.Header>22 Jan</Popover.Header>
@@ -53,7 +59,7 @@ function DatePickerContent() {
                     <DateItem title={item.title} icon={item.icon} iconColor={item.iconColor} key={index} />
                 ))}
                 <hr />
-                <Calendar onChange={setDate} value={date} />
+                <Calendar onChange={(date) => handleUpdateDueDate(date)} value={new Date()} />
             </Popover.Body>
         </Popover>
     );
