@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Icon } from '../Icon';
 import styles from './ListTask.module.scss';
 import classNames from 'classnames/bind';
-import { Modal } from 'react-bootstrap';
 import UpdateModal from './UpdateModal/UpdateModal';
 import useTaskContext from '~/context/TaskContext/TaskConsumer';
 import { taskRequest } from '~/services/requests';
+import Item from '../PrioritySelector/Item';
 
 const cx = classNames.bind(styles);
 
@@ -35,7 +35,12 @@ function ListTask({ index }) {
                 </span>
                 <div className={cx('main-content')}>
                     <div className={cx('first-row')}>
-                        <div className={cx('title')}>{tasks[index].taskName}</div>
+                        <div className="d-flex">
+                            <div className={cx('title')}>{tasks[index].taskName}</div>
+                            <div style={{ marginTop: '-4px' }}>
+                                <Item priority={tasks[index].priority} />
+                            </div>
+                        </div>
                         <div className={cx('first-row-icon')}>
                             <Icon.EditIcon />
                             <Icon.SetDayIcon />
