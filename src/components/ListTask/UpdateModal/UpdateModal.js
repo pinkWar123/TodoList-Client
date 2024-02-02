@@ -14,6 +14,7 @@ const cx = classNames.bind(styles);
 
 function UpdateModal({ show, onHide, index }) {
     const { tasks, setTasks } = useTaskContext();
+    console.log(tasks[index]);
     const [task, setCurrentTask] = useState(tasks[index]);
     return (
         <Modal show={show} onHide={onHide} contentClassName={cx('modal')} dialogClassName={cx('modal')} centered>
