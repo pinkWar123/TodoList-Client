@@ -188,13 +188,13 @@ export const BorderedCheckIcon = () => {
     );
 };
 
-export const CheckIcon = () => {
+export const CheckIcon = ({ fill = 'currentcolor' }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
-            fill="currentColor"
+            fill={fill}
             className="bi bi-check2"
             viewBox="0 0 16 16"
         >
@@ -389,6 +389,19 @@ export const ClockIcon = () => {
                 fill="currentColor"
                 fillRule="evenodd"
                 d="M13.5 8a5 5 0 1 1-10 0 5 5 0 0 1 10 0Zm1 0a6 6 0 1 1-12 0 6 6 0 0 1 12 0Zm-6-2.5a.5.5 0 0 0-1 0v3A.5.5 0 0 0 8 9h3a.5.5 0 0 0 0-1H8.5V5.5Z"
+                clipRule="evenodd"
+            ></path>
+        </svg>
+    );
+};
+
+export const FlagIcon = ({ fill = 'currentcolor' }) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path
+                fill={fill}
+                fillRule="evenodd"
+                d="M4.223 4.584A.5.5 0 0 0 4 5v14.5a.5.5 0 0 0 1 0v-5.723C5.886 13.262 7.05 13 8.5 13c.97 0 1.704.178 3.342.724 1.737.58 2.545.776 3.658.776 1.759 0 3.187-.357 4.277-1.084A.5.5 0 0 0 20 13V4.5a.5.5 0 0 0-.777-.416C18.313 4.69 17.075 5 15.5 5c-.97 0-1.704-.178-3.342-.724C10.421 3.696 9.613 3.5 8.5 3.5c-1.758 0-3.187.357-4.277 1.084Z"
                 clipRule="evenodd"
             ></path>
         </svg>

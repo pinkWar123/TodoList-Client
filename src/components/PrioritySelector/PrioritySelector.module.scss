@@ -1,0 +1,20 @@
+:root {
+    --p1-color: #d1453b;
+    --p2-color: #eb8909;
+    --p3-color: #246fe0;
+    --p4-color: #666;
+}
+
+.ref-wrapper {
+    cursor: pointer;
+}
+
+.item-wrapper {
+    padding: 4px 0;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    &:hover {
+        background-color: #eee;
+    }
+}

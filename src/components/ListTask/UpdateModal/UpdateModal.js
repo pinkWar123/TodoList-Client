@@ -9,6 +9,7 @@ import styles from './UpdateModal.module.scss';
 import classNames from 'classnames/bind';
 import DatePicker from '~/components/DatePicker';
 import CommentList from '~/components/Comment/CommentList';
+import PrioritySelector from '~/components/PrioritySelector';
 
 const cx = classNames.bind(styles);
 
@@ -41,8 +42,7 @@ function UpdateModal({ show, onHide, index }) {
                 <div className={cx('sec-column-wrapper')}>
                     <DatePicker task={tasks[index]} />
                     <div>
-                        <div>Priority</div>
-                        <div>P4</div>
+                        <PrioritySelector task={tasks[index]} />
                     </div>
                     <div>Labels</div>
                 </div>
