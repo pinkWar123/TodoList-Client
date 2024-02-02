@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { ConfirmButton } from '../Button/TextButton';
 import Calendar from 'react-calendar';
+import useTaskContext from '~/context/TaskContext/TaskConsumer';
 
 const cx = classNames.bind(styles);
 
@@ -47,22 +48,12 @@ const items = [
     },
 ];
 
-function DatePickerContent({ taskId, setDueDate }) {
+function DatePickerContent({ task }) {
+    const { setTasks } = useTaskContext();
     console.log('rendered');
-    const [dateValue, setDateValue] = useState();
+    const [dateValue, setDateValue] = useState(task.dueDate);
     const [hour, setHour] = useState();
     const [minute, setMinute] = useState();
-    useEffect(() => {
-        const fetchDueDate = async () => {
-            const response = await dateRequest.getDueDate({ taskId });
-            console.log(response);
-            if (response && response.status === 200) {
-                console.log(new Date(response.data));
-                setDateValue(response.data);
-            }
-        };
-        fetchDueDate();
-    }, [taskId]);
     useEffect(() => {
         if (dateValue) {
             setHour(new Date(dateValue).getHours());
@@ -75,18 +66,25 @@ function DatePickerContent({ taskId, setDueDate }) {
     const handleUpdateDueDate = async (timestamp) => {
         const date = new Date(timestamp);
         date.setHours(hour, minute);
-        const response = await dateRequest.postDueDate({ taskId, timestamp: date });
+        const response = await dateRequest.postDueDate({ taskId: task._id, timestamp: date });
         document.body.click();
         if (response && response.status === 200) {
             toast.success('Update due date sucessfully');
             setHour(new Date(date).getHours());
             setMinute(new Date(date).getMinutes());
-            setDueDate(date);
+            setTasks((prev) => {
+                return prev.map((item) => {
+                    if (item._id === task._id) {
+                        task.dueDate = date;
+                        return task;
+                    } else return item;
+                });
+            });
         } else toast.error('Update due date failed');
     };
 
     const handleShortcutClicked = async (index) => {
-        let currentDay = dateValue ? new Date(dateValue) : new Date();
+        let currentDay = new Date();
         if (index === 0) {
             currentDay.setHours(23, 59);
             setHour(23);
@@ -100,14 +98,22 @@ function DatePickerContent({ taskId, setDueDate }) {
         } else if (index === 3) {
             currentDay = new Date(currentDay.getTime() + 7 * 24 * 60 * 60 * 1000);
         }
-        const response = await dateRequest.postDueDate({ taskId, timestamp: currentDay });
+        console.log(task._id);
+        const response = await dateRequest.postDueDate({ taskId: task._id, timestamp: currentDay });
         if (response && response.status === 200) {
             toast.success('Update due date successfully');
             setHour(currentDay.getHours());
             setMinute(currentDay.getMinutes());
-            setDueDate(currentDay);
+            setTasks((prev) => {
+                return prev.map((item) => {
+                    if (item._id === task._id) {
+                        task.dueDate = currentDay;
+                        return task;
+                    } else return item;
+                });
+            });
             document.body.click();
-        }
+        } else toast.error('Update due date failed');
     };
 
     return (

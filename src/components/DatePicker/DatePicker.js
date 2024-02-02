@@ -4,9 +4,10 @@ import { UpcomingIcon } from '../Icon/Icon';
 import styles from './DatePicker.module.scss';
 import classNames from 'classnames/bind';
 import DatePickerContent from './DatePickerContent';
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef } from 'react';
 import { dateRequest } from '~/services/requests';
 import { toast } from 'react-toastify';
+import useTaskContext from '~/context/TaskContext/TaskConsumer';
 
 const cx = classNames.bind(styles);
 
@@ -25,7 +26,13 @@ const DateDiv = forwardRef((props, ref) => {
                 <div className={cx('text')}>{getDay(props.date)}</div>
             </div>
             <div>
-                <CloseButton style={{ flex: '1' }} onClick={props.deleteDueDate} />
+                <CloseButton
+                    style={{ flex: '1' }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        props.deleteDueDate();
+                    }}
+                />
             </div>
         </div>
     );
@@ -41,50 +48,35 @@ const DueDateDiv = forwardRef((props, ref) => {
     );
 });
 
-function DatePicker({ taskId }) {
-    const [dueDate, setDueDate] = useState(null);
-    useEffect(() => {
-        const fetchDueDate = async () => {
-            const response = await dateRequest.getDueDate({ taskId });
-            console.log(response);
-            if (response && response.status === 200) {
-                console.log(new Date(response.data));
-                setDueDate(response.data);
-            }
-        };
-        fetchDueDate();
-    }, [taskId]);
-
+function DatePicker({ task }) {
+    const { setTasks } = useTaskContext();
     const deleteDueDate = async () => {
-        const response = await dateRequest.deleteDueDate({ taskId });
+        const response = await dateRequest.deleteDueDate({ taskId: task._id });
         if (response && response.status === 200) {
             toast.success('Remove due date successfully');
-            setDueDate(null);
+            setTasks((prev) => {
+                return prev.map((item) => {
+                    if (item._id === task._id) {
+                        task.dueDate = null;
+                        return task;
+                    } else return item;
+                });
+            });
         } else toast.error('Remove due date failed');
     };
 
     return (
         <div>
-            {!dueDate ? (
-                <OverlayTrigger
-                    trigger="click"
-                    rootClose
-                    placement="auto"
-                    overlay={DatePickerContent({ taskId, setDueDate })}
-                >
-                    <DueDateDiv hasduedate={dueDate ? true : false} />
+            {!task.dueDate ? (
+                <OverlayTrigger trigger="click" rootClose placement="auto" overlay={DatePickerContent({ task })}>
+                    <DueDateDiv hasduedate={task.dueDate ? true : false} />
                 </OverlayTrigger>
             ) : (
-                <DueDateDiv hasduedate={dueDate ? true : false} />
+                <DueDateDiv hasduedate={task.dueDate ? true : false} />
             )}
-            {dueDate && (
-                <OverlayTrigger
-                    trigger="click"
-                    rootClose
-                    overlay={DatePickerContent({ taskId, setDueDate })}
-                    placement="auto"
-                >
-                    <DateDiv date={dueDate} deleteDueDate={deleteDueDate} />
+            {task.dueDate && (
+                <OverlayTrigger trigger="click" rootClose overlay={DatePickerContent({ task })} placement="auto">
+                    <DateDiv date={task.dueDate} deleteDueDate={deleteDueDate} />
                 </OverlayTrigger>
             )}
             <hr />

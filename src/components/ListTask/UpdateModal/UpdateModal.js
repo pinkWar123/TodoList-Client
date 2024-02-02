@@ -13,8 +13,7 @@ import CommentList from '~/components/Comment/CommentList';
 const cx = classNames.bind(styles);
 
 function UpdateModal({ show, onHide, index }) {
-    const { tasks, setTasks } = useTaskContext();
-    console.log(tasks[index]);
+    const { tasks } = useTaskContext();
     const [task, setCurrentTask] = useState(tasks[index]);
     return (
         <Modal show={show} onHide={onHide} contentClassName={cx('modal')} dialogClassName={cx('modal')} centered>
@@ -40,7 +39,7 @@ function UpdateModal({ show, onHide, index }) {
                     </div>
                 </div>
                 <div className={cx('sec-column-wrapper')}>
-                    <DatePicker taskId={tasks[index]._id} />
+                    <DatePicker task={tasks[index]} />
                     <div>
                         <div>Priority</div>
                         <div>P4</div>
