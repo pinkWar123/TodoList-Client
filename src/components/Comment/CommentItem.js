@@ -16,7 +16,6 @@ const cx = classNames.bind(styles);
 function CommentItem({ showMenuButtons, setActiveComment, commentDetail, handleDeleteComment, updateComment }) {
     const [isEditMode, setEditMode] = useState(false);
     const [emojiList, setEmojiList] = useState(commentDetail);
-    const [showEmoji, setShowEmoji] = useState(false);
     const toggleEditMode = () => {
         setEditMode((prev) => !prev);
     };
@@ -27,28 +26,22 @@ function CommentItem({ showMenuButtons, setActiveComment, commentDetail, handleD
         } catch (e) {
             toast.error('Failed to copy comment');
         }
+        document.body.click();
     };
 
     const renderButtons = () => {
         return (
             <div className={`ms-auto ${cx('icon', { show: showMenuButtons })}`} onClick={setActiveComment}>
                 <div>
-                    <OverlayTrigger
-                        trigger="click"
-                        rootClose
-                        placement="bottom"
-                        overlay={EmojiPopover(handleAddEmoji)}
-                        show={showEmoji}
-                        onToggle={() => setShowEmoji((prev) => !prev)}
-                    >
+                    <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={EmojiPopover(handleAddEmoji)}>
                         <EmojiIcon />
                     </OverlayTrigger>
                 </div>
 
                 <div>
                     <OverlayTrigger
-                        rootClose
                         trigger="click"
+                        rootClose
                         placement="bottom"
                         overlay={CommentMenuPopover({
                             commentDetail,
@@ -88,7 +81,7 @@ function CommentItem({ showMenuButtons, setActiveComment, commentDetail, handleD
         if (response.status === 200) {
             setEmojiList(response.data);
         }
-        setShowEmoji((prev) => !prev);
+        document.body.click();
     };
 
     return (

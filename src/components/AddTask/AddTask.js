@@ -19,7 +19,9 @@ function AddTask() {
         const response = await taskRequest.createNewTask({ taskName, description });
         console.log('Add task:', response);
         if (response) {
-            setTasks((prev) => [...prev, { taskName, description }]);
+            const newTasks = await taskRequest.getAllTasks();
+            console.log(newTasks);
+            setTasks(newTasks.data);
             setShowAddTask(false);
         }
     };
@@ -37,13 +39,13 @@ function AddTask() {
                             placeholder="Task name"
                             className={cx('task-name')}
                             onChange={(e) => setCurrentTask((prev) => ({ ...prev, taskName: e.target.value }))}
-                            value={currentTask.taskName}
+                            value={currentTask.taskName || ''}
                         />
                         <Form.Control
                             placeholder="Descriptions"
                             className={cx('desc')}
                             onChange={(e) => setCurrentTask((prev) => ({ ...prev, description: e.target.value }))}
-                            value={currentTask.description}
+                            value={currentTask.description || ''}
                         />
 
                         <hr />
@@ -61,7 +63,6 @@ function AddTask() {
                             <Button
                                 variant="danger"
                                 className={cx('btn')}
-                                s
                                 disabled={!currentTask.taskName || currentTask.taskName === ''}
                                 onClick={handleAddTask}
                             >

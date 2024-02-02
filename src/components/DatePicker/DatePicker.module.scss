@@ -25,3 +25,35 @@
         background-color: #eee;
     }
 }
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 4px 0;
+    &:hover {
+        background-color: #eee;
+    }
+}
+
+.due-date-wrapper {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+
+    .plus-icon {
+    }
+}
+
+.time-div-wrapper {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid var(--product-library-schedule-overdue-tint);
+    padding: 4px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    &:hover {
+        background-color: #eee;
+    }
+}

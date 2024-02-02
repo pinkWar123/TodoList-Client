@@ -242,7 +242,7 @@ export const CommentIcon = () => {
     );
 };
 
-export const MoreIcon = forwardRef((props, ref) => {
+export const MoreIcon = forwardRef(({ ...props }, ref) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" {...props} ref={ref}>
             <g fill="none" stroke="currentColor" strokeLinecap="round" transform="translate(3 10)">
@@ -279,7 +279,7 @@ export const PlusIcon = ({ ...props }) => {
 
 export const LogoutIcon = () => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ariaHidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true">
             <g fill="none" fillRule="evenodd">
                 <path
                     stroke="currentColor"
@@ -301,7 +301,7 @@ export const ThisWeekendIcon = () => {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            ariaHidden="true"
+            aria-hidden="true"
             focusable="false"
         >
             <path
@@ -381,3 +381,16 @@ export const EmojiIcon = forwardRef((props, ref) => {
         </svg>
     );
 });
+
+export const ClockIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" fill="none" viewBox="0 0 17 16">
+            <path
+                fill="currentColor"
+                fillRule="evenodd"
+                d="M13.5 8a5 5 0 1 1-10 0 5 5 0 0 1 10 0Zm1 0a6 6 0 1 1-12 0 6 6 0 0 1 12 0Zm-6-2.5a.5.5 0 0 0-1 0v3A.5.5 0 0 0 8 9h3a.5.5 0 0 0 0-1H8.5V5.5Z"
+                clipRule="evenodd"
+            ></path>
+        </svg>
+    );
+};

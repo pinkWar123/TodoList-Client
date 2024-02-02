@@ -5,7 +5,7 @@ import { CopyIcon, DeleteIcon, EditIcon } from '../Icon/Icon';
 
 const cx = classNames.bind(styles);
 
-function CommentMenuPopover({ commentDetail, toggleEditMode, handleCopyComment, handleDeleteComment }) {
+function CommentMenuPopover({ toggleEditMode, handleCopyComment, handleDeleteComment }) {
     const topItems = [
         {
             icon: <EditIcon />,
