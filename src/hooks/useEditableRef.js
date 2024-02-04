@@ -1,6 +1,6 @@
 const { useRef, useEffect } = require('react');
 
-const useEditableRef = (initialValue) => {
+const useEditableRef = (initialValue, needFocus = true) => {
     const editableRef = useRef(null);
     const setEndOfContenteditable = (contentEditableElement) => {
         var range, selection;
@@ -17,9 +17,9 @@ const useEditableRef = (initialValue) => {
         // Set the initial content when the component mounts
         if (editableRef.current) {
             editableRef.current.innerHTML = initialValue;
-            setEndOfContenteditable(editableRef.current);
+            if (needFocus) setEndOfContenteditable(editableRef.current);
         }
-    }, [initialValue]);
+    }, [initialValue, needFocus]);
     const clearAndFocusEditableDiv = () => {
         editableRef.current.innerHTML = '';
         editableRef.current.focus();

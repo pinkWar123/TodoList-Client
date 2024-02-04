@@ -23,6 +23,16 @@ const createNewTask = async ({ taskName, description }) => {
     }
 };
 
+const updateTask = async ({ _id, task }) => {
+    try {
+        const response = await request.put('/task', { _id, task });
+        return response;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
+
 const removeTask = async ({ _id }) => {
     try {
         const response = await request.delete('/task', {
@@ -35,4 +45,4 @@ const removeTask = async ({ _id }) => {
     }
 };
 
-export { getAllTasks, createNewTask, removeTask };
+export { getAllTasks, createNewTask, updateTask, removeTask };
