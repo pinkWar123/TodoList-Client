@@ -6,10 +6,6 @@ const items = [
         title: 'Add task',
     },
     {
-        icon: <Icon.SearchIcon />,
-        title: 'Search',
-    },
-    {
         icon: <Icon.InboxIcon />,
         title: 'Inbox',
     },

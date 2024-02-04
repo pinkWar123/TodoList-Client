@@ -44,3 +44,9 @@ li {
     border-radius: 20px;
     border: 3px solid orange;
 }
+
+[contenteditable='true']:empty:before {
+    content: attr(placeholder);
+    pointer-events: none;
+    display: block; /* For Firefox */
+}

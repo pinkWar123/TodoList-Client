@@ -53,3 +53,40 @@
     font-size: 12px;
     padding: 0;
 }
+
+.edit-comment-wrapper {
+    border: 1px solid #999;
+    width: 100%;
+    border-radius: 6px;
+    padding: 8px;
+
+    .editable {
+        outline: none;
+        padding-bottom: 10px;
+        font-size: 14px;
+        margin-left: 4px;
+    }
+
+    .btn-row {
+        display: flex;
+        justify-content: end;
+    }
+}
+
+.edit {
+    padding-bottom: 48px;
+    width: 100%;
+    display: flex;
+}
+
+.task-wrapper,
+.desc-wrapper {
+    padding-bottom: 20px;
+    outline: none;
+    font-size: 14px;
+    margin-left: 4px;
+}
+
+.task-wrapper {
+    font-weight: 700;
+}
