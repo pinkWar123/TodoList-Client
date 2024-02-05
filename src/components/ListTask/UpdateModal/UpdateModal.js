@@ -21,6 +21,23 @@ function UpdateModal({ show, onHide, index }) {
         const _priority = tasks[index].priority || 4;
         return _priority;
     });
+    const handleCompleteTask = async () => {
+        const { taskName, description, dueDate, priority } = task;
+        const response = await taskRequest.updateTask({
+            _id: task._id,
+            task: { taskName, description, dueDate, priority, status: 1 },
+        });
+        if (response && response.status === 200) {
+            setTasks((prev) => {
+                if (prev.length > 0) {
+                    return prev.filter((_, _index) => _index !== index);
+                }
+            });
+            toast.success('Complete task!');
+        }
+        onHide();
+    };
+
     const handleUpdateTask = async ({ taskName, description }) => {
         const response = await taskRequest.updateTask({ _id: tasks[index]._id, task: { taskName, description } });
         if (response && response.status === 200) {
@@ -59,7 +76,7 @@ function UpdateModal({ show, onHide, index }) {
             <div className="d-flex">
                 <div className={cx('first-column-wrapper')}>
                     <div className="d-flex" style={{ padding: '24px' }}>
-                        <CheckBox style={{ marginTop: '8px' }} />
+                        <CheckBox style={{ marginTop: '8px' }} onClick={handleCompleteTask} />
                         <EditTask
                             taskName={task.taskName}
                             desc={task.description}

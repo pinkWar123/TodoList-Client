@@ -14,7 +14,7 @@ function AddTaskModal({ show, onHide }) {
         const value = currentTask;
         const response = await taskRequest.createNewTask(value);
         if (response) {
-            const newTasks = await taskRequest.getAllTasks();
+            const newTasks = await taskRequest.getTodayTasks();
             setTasks(newTasks.data);
             onHide();
             toast.success('Add task successfully');
