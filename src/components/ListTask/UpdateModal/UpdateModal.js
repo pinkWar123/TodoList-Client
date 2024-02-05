@@ -8,13 +8,19 @@ import classNames from 'classnames/bind';
 import DatePicker from '~/components/DatePicker';
 import PrioritySelector from '~/components/PrioritySelector';
 import EditTask from '~/components/AddTask/EditTask';
-import { taskRequest } from '~/services/requests';
+import { priorityRequest, taskRequest } from '~/services/requests';
+import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function UpdateModal({ show, onHide, index }) {
     const { setTasks, tasks } = useTaskContext();
     const task = tasks[index];
+    const [priority, setPriority] = useState(() => {
+        const _priority = tasks[index].priority || 4;
+        return _priority;
+    });
     const handleUpdateTask = async ({ taskName, description }) => {
         const response = await taskRequest.updateTask({ _id: tasks[index]._id, task: { taskName, description } });
         if (response && response.status === 200) {
@@ -27,6 +33,22 @@ function UpdateModal({ show, onHide, index }) {
                     return item;
                 });
             });
+        }
+    };
+    const handleUpdatePriority = async (index) => {
+        const response = await priorityRequest.postPriority({ taskId: task._id, priority: index + 1 });
+        if (response && response.status === 200) {
+            setTasks((prev) => {
+                return prev.map((item) => {
+                    if (item._id === task._id) {
+                        item.priority = index + 1;
+                    }
+                    return item;
+                });
+            });
+            setPriority(index + 1);
+            toast.success('Update priority successfully');
+            document.body.click();
         }
     };
     return (
@@ -52,7 +74,8 @@ function UpdateModal({ show, onHide, index }) {
                 <div className={cx('sec-column-wrapper')}>
                     <DatePicker task={tasks[index]} />
                     <div>
-                        <PrioritySelector task={tasks[index]} />
+                        <div>Priority</div>
+                        <PrioritySelector handleUpdatePriority={handleUpdatePriority} priority={priority} />
                     </div>
                     <div>Labels</div>
                 </div>

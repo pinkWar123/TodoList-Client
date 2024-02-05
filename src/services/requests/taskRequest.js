@@ -10,11 +10,13 @@ const getAllTasks = async () => {
     }
 };
 
-const createNewTask = async ({ taskName, description }) => {
+const createNewTask = async ({ taskName, description, dueDate, priority }) => {
     try {
         const response = await request.post('/task', {
             taskName,
             description,
+            dueDate,
+            priority,
         });
         return response;
     } catch (err) {

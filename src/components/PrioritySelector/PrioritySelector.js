@@ -1,11 +1,10 @@
 import { OverlayTrigger } from 'react-bootstrap';
 import PriorityContent from './PriorityContent';
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef } from 'react';
 
 import styles from './PrioritySelector.module.scss';
 import classNames from 'classnames/bind';
 import Item from './Item';
-import { priorityRequest } from '~/services/requests';
 
 const cx = classNames.bind(styles);
 
@@ -17,12 +16,16 @@ const RefDiv = forwardRef((props, ref) => {
     );
 });
 
-function PrioritySelector({ task }) {
+function PrioritySelector({ priority, handleUpdatePriority }) {
     return (
         <div>
-            <div>Priority</div>
-            <OverlayTrigger rootClose placement="bottom" trigger="click" overlay={PriorityContent({ task })}>
-                <RefDiv priority={task.priority} />
+            <OverlayTrigger
+                rootClose
+                placement="bottom"
+                trigger="click"
+                overlay={PriorityContent({ priority, handleUpdatePriority })}
+            >
+                <RefDiv priority={priority} />
             </OverlayTrigger>
         </div>
     );
