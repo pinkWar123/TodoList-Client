@@ -14,10 +14,9 @@ function AddTask() {
     const { setTasks } = useTaskContext();
 
     const handleAddTask = async (currentTask) => {
-        const value = currentTask;
-        const response = await taskRequest.createNewTask(value);
+        const response = await taskRequest.createNewTask(currentTask);
         if (response) {
-            const newTasks = await taskRequest.getAllTasks();
+            const newTasks = await taskRequest.getTodayTasks();
             setTasks(newTasks.data);
             setShowAddTask(false);
             toast.success('Add task successfully');

@@ -13,7 +13,7 @@ function Today() {
     const { tasks, setTasks } = useTaskContext();
     useEffect(() => {
         const fetchTasks = async () => {
-            const response = await taskRequest.getAllTasks();
+            const response = await taskRequest.getTodayTasks();
             setTasks(response?.data);
         };
         fetchTasks();

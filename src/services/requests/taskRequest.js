@@ -1,8 +1,20 @@
 import request from './request';
 
+const endpoint = '/task';
+
 const getAllTasks = async () => {
     try {
-        const response = await request.get('/task');
+        const response = await request.get(endpoint);
+        return response;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
+
+const getTodayTasks = async () => {
+    try {
+        const response = await request.get(endpoint + '/today');
         return response;
     } catch (err) {
         console.log(err);
@@ -12,7 +24,7 @@ const getAllTasks = async () => {
 
 const createNewTask = async ({ taskName, description, dueDate, priority }) => {
     try {
-        const response = await request.post('/task', {
+        const response = await request.post(endpoint, {
             taskName,
             description,
             dueDate,
@@ -27,7 +39,7 @@ const createNewTask = async ({ taskName, description, dueDate, priority }) => {
 
 const updateTask = async ({ _id, task }) => {
     try {
-        const response = await request.put('/task', { _id, task });
+        const response = await request.put(endpoint, { _id, task });
         return response;
     } catch (err) {
         console.log(err);
@@ -37,7 +49,7 @@ const updateTask = async ({ _id, task }) => {
 
 const removeTask = async ({ _id }) => {
     try {
-        const response = await request.delete('/task', {
+        const response = await request.delete(endpoint, {
             data: { _id },
         });
         return response;
@@ -47,4 +59,4 @@ const removeTask = async ({ _id }) => {
     }
 };
 
-export { getAllTasks, createNewTask, updateTask, removeTask };
+export { getAllTasks, getTodayTasks, createNewTask, updateTask, removeTask };

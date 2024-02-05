@@ -12,9 +12,14 @@ const cx = classNames.bind(styles);
 function ListTask({ index }) {
     const [updateModal, setUpdateModal] = useState(false);
     const { tasks, setTasks } = useTaskContext();
-    const handleRemoveTask = async (index) => {
-        const response = await taskRequest.removeTask({ _id: tasks[index]._id });
-        if (response) {
+    const handleCompleteTask = async (index) => {
+        // const response = await taskRequest.removeTask({ _id: tasks[index]._id });
+        const { taskName, description, dueDate, priority } = tasks[index];
+        const response = await taskRequest.updateTask({
+            _id: tasks[index]._id,
+            task: { taskName, description, dueDate, priority, status: 1 },
+        });
+        if (response && response.status === 200) {
             setTasks((prev) => {
                 if (prev.length > 0) {
                     return prev.filter((_, _index) => _index !== index);
@@ -28,7 +33,13 @@ function ListTask({ index }) {
                 <div className={cx('drag-icon')}>
                     <Icon.DragIcon />
                 </div>
-                <span className={cx('circle')} onClick={() => handleRemoveTask(index)}>
+                <span
+                    className={cx('circle')}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleCompleteTask(index);
+                    }}
+                >
                     <div className={cx('check-icon')}>
                         <Icon.CheckIcon />
                     </div>
