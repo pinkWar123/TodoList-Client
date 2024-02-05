@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import useTaskContext from '~/context/TaskContext/TaskConsumer';
 import { taskRequest } from '~/services/requests';
 import AddTaskEdit from './AddTaskEdit';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -13,12 +14,13 @@ function AddTask() {
     const { setTasks } = useTaskContext();
 
     const handleAddTask = async (currentTask) => {
-        const { taskName, description } = currentTask;
-        const response = await taskRequest.createNewTask({ taskName, description });
+        const value = currentTask;
+        const response = await taskRequest.createNewTask(value);
         if (response) {
             const newTasks = await taskRequest.getAllTasks();
             setTasks(newTasks.data);
             setShowAddTask(false);
+            toast.success('Add task successfully');
         }
     };
     return (
@@ -37,6 +39,7 @@ function AddTask() {
                                 setShowAddTask((prev) => !prev);
                             }}
                             onSubmit={(value) => handleAddTask(value)}
+                            onHide={() => setShowAddTask((prev) => !prev)}
                         />
                     </div>
                 </div>

@@ -4,25 +4,53 @@ import classNames from 'classnames/bind';
 import { CancelButton, ConfirmButton } from '../Button/TextButton';
 import Input from '../NoBorderInput/Inputs';
 import { useEditableRef } from '~/hooks';
+import { AddTaskDatePicker } from '../DatePicker';
+import PrioritySelector from '../PrioritySelector';
 
 const cx = classNames.bind(styles);
 
-function AddTaskEdit({ onCancel, onSubmit }) {
+function AddTaskEdit({ onCancel, onSubmit, onHide }) {
     const [_taskName, setTaskName] = useState('');
     const [_description, setDescription] = useState('');
     const { editableRef: taskNameRef } = useEditableRef('');
     const { editableRef: descRef } = useEditableRef('');
+    const [dateValue, setDateValue] = useState(() => {
+        const date = new Date();
+        date.setHours(23, 59);
+        return date;
+    });
+    const [priority, setPriority] = useState(4);
+    console.log(dateValue);
+    const handleUpdateDueDate = (timestamp) => {
+        setDateValue(timestamp);
+        document.body.click();
+    };
     return (
         <div className={cx('edit-comment-wrapper')}>
             <Input clear={true} placeholder="Task name..." primary ref={taskNameRef} setValue={setTaskName} />
             <Input clear={true} placeholder="Description..." ref={descRef} setValue={setDescription} />
-
+            <div className="d-flex">
+                <AddTaskDatePicker
+                    dateValue={dateValue}
+                    setDateValue={setDateValue}
+                    handleUpdateDueDate={handleUpdateDueDate}
+                />
+                <PrioritySelector
+                    priority={priority}
+                    handleUpdatePriority={(index) => {
+                        setPriority(index + 1);
+                        document.body.click();
+                    }}
+                />
+            </div>
             <hr />
             <div>
                 <CancelButton onClick={onCancel}></CancelButton>
                 <ConfirmButton
                     title="Add task"
-                    onClick={() => onSubmit({ taskName: _taskName, description: _description })}
+                    onClick={() =>
+                        onSubmit({ taskName: _taskName, description: _description, dueDate: dateValue, priority })
+                    }
                 ></ConfirmButton>
             </div>
         </div>
