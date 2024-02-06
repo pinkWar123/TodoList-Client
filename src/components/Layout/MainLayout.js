@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
@@ -6,13 +6,20 @@ import classNames from 'classnames/bind';
 import styles from './Layout.module.scss';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Offcanvas } from 'react-bootstrap';
+import { path } from '~/configs';
 
 const cx = classNames.bind(styles);
 
 function MainLayout({ children }) {
     const [showSidebar, toggleSidebar] = useState(true);
     const [showOffcanvas, toggleOffcanvas] = useState(false);
-    const [active, setActive] = useState(1);
+    const [active, setActive] = useState(() => {
+        const currentPath = window.location.pathname;
+        if (currentPath === path.today || currentPath === path.wildcard) return 0;
+        if (currentPath === path.upcoming) return 1;
+        if (currentPath === path.completed) return 2;
+    });
+
     return (
         <div>
             <div className={cx('wrapper')}>
