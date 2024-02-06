@@ -38,18 +38,15 @@ function UpdateModal({ show, onHide, index }) {
         onHide();
     };
 
-    const handleUpdateTask = async ({ taskName, description }) => {
-        const response = await taskRequest.updateTask({ _id: tasks[index]._id, task: { taskName, description } });
+    const handleUpdateTask = async ({ taskName, description, dueDate, status }) => {
+        const response = await taskRequest.updateTask({
+            _id: tasks[index]._id,
+            task: { taskName, description, dueDate, status },
+        });
         if (response && response.status === 200) {
-            setTasks((prev) => {
-                return prev.map((item, _index) => {
-                    if (_index === index) {
-                        item.taskName = taskName;
-                        item.description = description;
-                    }
-                    return item;
-                });
-            });
+            const tasks = await taskRequest.getTodayTasks();
+            console.log(tasks);
+            setTasks(tasks);
         }
     };
     const handleUpdatePriority = async (index) => {

@@ -4,7 +4,7 @@ import styles from './DatePicker.module.scss';
 import classNames from 'classnames/bind';
 import DatePickerContent from './DatePickerContent';
 import { useState } from 'react';
-import { dateRequest } from '~/services/requests';
+import { dateRequest, taskRequest } from '~/services/requests';
 import { toast } from 'react-toastify';
 import useTaskContext from '~/context/TaskContext/TaskConsumer';
 import { DateDiv, DueDateDiv } from './DateDiv';
@@ -35,15 +35,8 @@ function DatePicker({ task }) {
         document.body.click();
         if (response && response.status === 200) {
             toast.success('Update due date sucessfully');
-
-            setTasks((prev) => {
-                return prev.map((item) => {
-                    if (item._id === task._id) {
-                        task.dueDate = timestamp;
-                        return task;
-                    } else return item;
-                });
-            });
+            const data = await taskRequest.getTodayTasks();
+            if (data) setTasks(data.data);
         } else toast.error('Update due date failed');
     };
 
