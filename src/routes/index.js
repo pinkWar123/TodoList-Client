@@ -31,6 +31,10 @@ const routes = [
         component: <Today />,
         path: path.wildcard,
     },
+    {
+        component: <Today />,
+        path: path.home,
+    },
 ];
 
 export default routes;

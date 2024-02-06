@@ -5,6 +5,7 @@ const path = {
     upcoming: '/upcoming',
     today: '/today',
     wildcard: '/*',
+    home: '/',
 };
 
 export default path;

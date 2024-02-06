@@ -15,7 +15,7 @@ function MainLayout({ children }) {
     const [showOffcanvas, toggleOffcanvas] = useState(false);
     const [active, setActive] = useState(() => {
         const currentPath = window.location.pathname;
-        if (currentPath === path.today || currentPath === path.wildcard) return 0;
+        if (currentPath === path.today || currentPath === path.wildcard || currentPath === path.home) return 0;
         if (currentPath === path.upcoming) return 1;
         if (currentPath === path.completed) return 2;
     });
