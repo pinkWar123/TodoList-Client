@@ -3,28 +3,22 @@ import { Icon } from '../Icon';
 import styles from './ListTask.module.scss';
 import classNames from 'classnames/bind';
 import UpdateModal from './UpdateModal/UpdateModal';
-import useTaskContext from '~/context/TaskContext/TaskConsumer';
 import { taskRequest } from '~/services/requests';
 import Item from '../PrioritySelector/Item';
 
 const cx = classNames.bind(styles);
 
-function ListTask({ index }) {
+function ListTask({ tasks, setTasks, index, fetchTasks }) {
     const [updateModal, setUpdateModal] = useState(false);
-    const { tasks, setTasks } = useTaskContext();
     const handleCompleteTask = async (index) => {
-        // const response = await taskRequest.removeTask({ _id: tasks[index]._id });
         const { taskName, description, dueDate, priority } = tasks[index];
         const response = await taskRequest.updateTask({
             _id: tasks[index]._id,
             task: { taskName, description, dueDate, priority, status: 1 },
         });
         if (response && response.status === 200) {
-            setTasks((prev) => {
-                if (prev.length > 0) {
-                    return prev.filter((_, _index) => _index !== index);
-                }
-            });
+            const response = await fetchTasks();
+            setTasks(response.data);
         }
     };
     return (
@@ -63,7 +57,14 @@ function ListTask({ index }) {
                 </div>
             </div>
 
-            <UpdateModal show={updateModal} onHide={() => setUpdateModal(false)} index={index} />
+            <UpdateModal
+                show={updateModal}
+                onHide={() => setUpdateModal(false)}
+                index={index}
+                tasks={tasks}
+                setTasks={setTasks}
+                fetchTasks={fetchTasks}
+            />
         </>
     );
 }

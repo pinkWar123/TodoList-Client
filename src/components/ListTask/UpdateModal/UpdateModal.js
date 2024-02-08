@@ -14,8 +14,7 @@ import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-function UpdateModal({ show, onHide, index }) {
-    const { setTasks, tasks } = useTaskContext();
+function UpdateModal({ show, onHide, index, tasks, setTasks, fetchTasks }) {
     const task = tasks[index];
     const [priority, setPriority] = useState(() => {
         const _priority = tasks[index].priority || 4;
@@ -44,7 +43,7 @@ function UpdateModal({ show, onHide, index }) {
             task: { taskName, description, dueDate, status },
         });
         if (response && response.status === 200) {
-            const tasks = await taskRequest.getTodayTasks();
+            const tasks = await fetchTasks();
             console.log(tasks);
             setTasks(tasks);
         }
@@ -86,7 +85,7 @@ function UpdateModal({ show, onHide, index }) {
                     </div>
                 </div>
                 <div className={cx('sec-column-wrapper')}>
-                    <DatePicker task={tasks[index]} />
+                    <DatePicker task={tasks[index]} setTasks={setTasks} fetchTasks={fetchTasks} />
                     <div>
                         <div>Priority</div>
                         <PrioritySelector handleUpdatePriority={handleUpdatePriority} priority={priority} />

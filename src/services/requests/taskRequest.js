@@ -22,6 +22,16 @@ const getTodayTasks = async () => {
     }
 };
 
+const getOverdueTasks = async () => {
+    try {
+        const response = await request.get(endpoint + '/overdue');
+        return response;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
+
 const createNewTask = async ({ taskName, description, dueDate, priority }) => {
     try {
         const response = await request.post(endpoint, {
@@ -59,4 +69,4 @@ const removeTask = async ({ _id }) => {
     }
 };
 
-export { getAllTasks, getTodayTasks, createNewTask, updateTask, removeTask };
+export { getAllTasks, getTodayTasks, getOverdueTasks, createNewTask, updateTask, removeTask };
