@@ -99,6 +99,7 @@ function DatePickerContent({ dateValue, setDateValue, handleUpdateDueDate }) {
                             setDateValue(value);
                             document.body.click();
                         }}
+                        tileDisabled={({ date }) => date < new Date()}
                     />
                     <Form.Label>Hour</Form.Label>
                     <Form.Control

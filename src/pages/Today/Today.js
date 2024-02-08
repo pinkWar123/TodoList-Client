@@ -10,29 +10,63 @@ import useTaskContext from '~/context/TaskContext/TaskConsumer';
 const cx = classNames.bind(styles);
 
 function Today() {
-    const { tasks, setTasks } = useTaskContext();
+    const { tasks, setTasks, overdueTasks, setOverdueTasks } = useTaskContext();
+    const fetchOverdueTasks = async () => {
+        const tasks = await taskRequest.getOverdueTasks();
+        return tasks;
+    };
+    const fetchTasks = async () => {
+        const tasks = await taskRequest.getTodayTasks();
+        return tasks;
+    };
     useEffect(() => {
-        const fetchTasks = async () => {
-            const response = await taskRequest.getTodayTasks();
-            setTasks(response?.data);
+        const fetch = async () => {
+            const response = await Promise.all([fetchTasks(), fetchOverdueTasks()]);
+            console.log(response);
+            setTasks(response[0]?.data);
+            setOverdueTasks(response[1]?.data);
         };
-        fetchTasks();
-    }, [setTasks]);
+        fetch();
+    }, [setTasks, setOverdueTasks]);
+
+    const formatDate = () => {
+        const date = new Date();
+        const options = { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    };
 
     return (
         <div>
             <h2>Today</h2>
-            <div className={cx('num-task-wrapper')}>
-                <Icon.BorderedCheckIcon />
-                <div className={cx('num-task')}>{tasks ? tasks.length : 0} tasks</div>
-            </div>
+            <h6>Overdue</h6>
+            <div className={cx('num-task')}>{overdueTasks ? overdueTasks.length : 0} tasks</div>
             <ul>
-                {tasks?.map((task, index) => (
+                {overdueTasks?.map((_, index) => (
                     <li key={index}>
-                        <ListTask index={index} />
+                        <ListTask
+                            index={index}
+                            tasks={overdueTasks}
+                            setTasks={setOverdueTasks}
+                            fetchTasks={fetchOverdueTasks}
+                        />
                     </li>
                 ))}
             </ul>
+
+            <div style={{ marginTop: '32px' }}>
+                <h6>{formatDate()}</h6>
+                <div className={cx('num-task-wrapper')}>
+                    <Icon.BorderedCheckIcon />
+                    <div className={cx('num-task')}>{tasks ? tasks.length : 0} tasks</div>
+                </div>
+                <ul>
+                    {tasks?.map((task, index) => (
+                        <li key={index}>
+                            <ListTask index={index} tasks={tasks} setTasks={setTasks} fetchTasks={fetchTasks} />
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             <AddTask />
         </div>

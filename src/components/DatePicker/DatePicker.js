@@ -1,7 +1,4 @@
 import { OverlayTrigger } from 'react-bootstrap';
-
-import styles from './DatePicker.module.scss';
-import classNames from 'classnames/bind';
 import DatePickerContent from './DatePickerContent';
 import { useState } from 'react';
 import { dateRequest, taskRequest } from '~/services/requests';
@@ -9,24 +6,14 @@ import { toast } from 'react-toastify';
 import useTaskContext from '~/context/TaskContext/TaskConsumer';
 import { DateDiv, DueDateDiv } from './DateDiv';
 
-const cx = classNames.bind(styles);
-
-function DatePicker({ task }) {
+function DatePicker({ task, setTasks, fetchTasks }) {
     const [dateValue, setDateValue] = useState(task.dueDate);
-
-    const { setTasks } = useTaskContext();
     const deleteDueDate = async () => {
         const response = await dateRequest.deleteDueDate({ taskId: task._id });
         if (response && response.status === 200) {
             toast.success('Remove due date successfully');
-            setTasks((prev) => {
-                return prev.map((item) => {
-                    if (item._id === task._id) {
-                        task.dueDate = null;
-                        return task;
-                    } else return item;
-                });
-            });
+            const newTasks = await fetchTasks();
+            setTasks(newTasks?.data);
         } else toast.error('Remove due date failed');
     };
 
@@ -35,8 +22,11 @@ function DatePicker({ task }) {
         document.body.click();
         if (response && response.status === 200) {
             toast.success('Update due date sucessfully');
-            const data = await taskRequest.getTodayTasks();
-            if (data) setTasks(data.data);
+            const data = await fetchTasks();
+            if (data) {
+                setTasks(data.data);
+                setDateValue(timestamp);
+            }
         } else toast.error('Update due date failed');
     };
 
