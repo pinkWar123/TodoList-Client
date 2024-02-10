@@ -32,6 +32,28 @@ const getOverdueTasks = async () => {
     }
 };
 
+const getCompletedTasks = async ({ page, pageSize }) => {
+    try {
+        const response = await request.get(endpoint + '/completed', {
+            params: { page, pageSize },
+        });
+        return response;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
+
+const getCompletedTasksNumDates = async () => {
+    try {
+        const response = await request.get(endpoint + '/completed/maxPage');
+        return response;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
+
 const createNewTask = async ({ taskName, description, dueDate, priority }) => {
     try {
         const response = await request.post(endpoint, {
@@ -39,6 +61,7 @@ const createNewTask = async ({ taskName, description, dueDate, priority }) => {
             description,
             dueDate,
             priority,
+            completedAt: null,
         });
         return response;
     } catch (err) {
@@ -50,6 +73,18 @@ const createNewTask = async ({ taskName, description, dueDate, priority }) => {
 const updateTask = async ({ _id, task }) => {
     try {
         const response = await request.put(endpoint, { _id, task });
+        return response;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
+
+const completeTask = async ({ _id }) => {
+    try {
+        const response = await request.put(endpoint + '/completed', {
+            _id,
+        });
         return response;
     } catch (err) {
         console.log(err);
@@ -69,4 +104,14 @@ const removeTask = async ({ _id }) => {
     }
 };
 
-export { getAllTasks, getTodayTasks, getOverdueTasks, createNewTask, updateTask, removeTask };
+export {
+    getAllTasks,
+    getTodayTasks,
+    getOverdueTasks,
+    getCompletedTasks,
+    getCompletedTasksNumDates,
+    createNewTask,
+    updateTask,
+    completeTask,
+    removeTask,
+};

@@ -1,0 +1,13 @@
+.completed {
+    color: var(--text-secondary);
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.see-more {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: var(--product-library-navbar-on-selected-tint);
+}

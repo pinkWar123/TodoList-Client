@@ -26,4 +26,14 @@ const convertCreatedAt = (createdAt) => {
     return formattedCreatedAt;
 };
 
-export { convertCreatedAt };
+const formatDate = (ts) => {
+    const date = new Date(ts);
+    const options = { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+};
+
+const convertCompletedAt = (ts) => {
+    return new Date(ts).toISOString().substr(11, 5);
+};
+
+export { convertCreatedAt, formatDate, convertCompletedAt };
