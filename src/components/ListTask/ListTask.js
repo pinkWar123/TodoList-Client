@@ -12,9 +12,8 @@ function ListTask({ tasks, setTasks, index, fetchTasks }) {
     const [updateModal, setUpdateModal] = useState(false);
     const handleCompleteTask = async (index) => {
         const { taskName, description, dueDate, priority } = tasks[index];
-        const response = await taskRequest.updateTask({
+        const response = await taskRequest.completeTask({
             _id: tasks[index]._id,
-            task: { taskName, description, dueDate, priority, status: 1 },
         });
         if (response && response.status === 200) {
             const response = await fetchTasks();
@@ -70,3 +69,17 @@ function ListTask({ tasks, setTasks, index, fetchTasks }) {
 }
 
 export default ListTask;
+
+/**
+[
+    {
+        date: Date1,
+        tasks: [task1, task2, task3, task4, task5, task6]
+    },
+    {
+        date: Date2,
+        tasks: [task1, task2, task3, task4]
+    },
+    ...
+]
+ */

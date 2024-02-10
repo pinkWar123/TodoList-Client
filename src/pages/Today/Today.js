@@ -6,11 +6,13 @@ import AddTask from '~/components/AddTask';
 import { useEffect } from 'react';
 import { taskRequest } from '~/services/requests';
 import useTaskContext from '~/context/TaskContext/TaskConsumer';
+import { formatDate } from '~/utils';
 
 const cx = classNames.bind(styles);
 
 function Today() {
     const { tasks, setTasks, overdueTasks, setOverdueTasks } = useTaskContext();
+    console.log(new Date());
     const fetchOverdueTasks = async () => {
         const tasks = await taskRequest.getOverdueTasks();
         return tasks;
@@ -28,12 +30,6 @@ function Today() {
         };
         fetch();
     }, [setTasks, setOverdueTasks]);
-
-    const formatDate = () => {
-        const date = new Date();
-        const options = { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' };
-        return date.toLocaleDateString('en-US', options);
-    };
 
     return (
         <div>
