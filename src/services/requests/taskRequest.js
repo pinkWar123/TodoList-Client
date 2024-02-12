@@ -54,6 +54,26 @@ const getCompletedTasksNumDates = async () => {
     }
 };
 
+const getUpcomingTasks = async ({ page, pageSize }) => {
+    try {
+        const response = await request.get(endpoint + '/upcoming');
+        return response;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
+
+const getUpcomingTasksNumDates = async () => {
+    try {
+        const response = await request.get(endpoint + '/upcoming/maxPage');
+        return response;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
+
 const createNewTask = async ({ taskName, description, dueDate, priority }) => {
     try {
         const response = await request.post(endpoint, {
@@ -110,6 +130,8 @@ export {
     getOverdueTasks,
     getCompletedTasks,
     getCompletedTasksNumDates,
+    getUpcomingTasks,
+    getUpcomingTasksNumDates,
     createNewTask,
     updateTask,
     completeTask,

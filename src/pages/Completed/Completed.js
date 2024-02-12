@@ -32,7 +32,7 @@ function Completed() {
             }
         };
         fetchTasks();
-    }, [page, pageSize]);
+    }, []);
     const renderCompletedTasks = () => {
         if (tasks && tasks.length > 0) {
             return tasks.map((task) => {
@@ -55,10 +55,14 @@ function Completed() {
         }
     };
     const fetchMoreTasks = async () => {
-        const response = await taskRequest.getCompletedTasks({ page, pageSize: pageSize + step });
+        const response = await taskRequest.getCompletedTasks({ page: page + 1, pageSize });
+        console.log(response.data);
         if (response && response.status === 200) {
-            setTasks(response.data);
-            setPageSize((prev) => prev + step);
+            if (Array.isArray(response.data) && response.data.length > 0) {
+                setTasks((prev) => [...prev, ...response.data]);
+                setPage((prev) => prev + 1);
+            }
+            // setPageSize((prev) => prev + step);
         }
     };
     return (

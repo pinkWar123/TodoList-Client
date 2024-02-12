@@ -9,18 +9,17 @@ import PrioritySelector from '../PrioritySelector';
 
 const cx = classNames.bind(styles);
 
-function AddTaskEdit({ onCancel, onSubmit, onHide }) {
-    const [_taskName, setTaskName] = useState('');
-    const [_description, setDescription] = useState('');
-    const { editableRef: taskNameRef } = useEditableRef('');
-    const { editableRef: descRef } = useEditableRef('');
+function AddTaskEdit({ onCancel, onSubmit, onHide, taskName, description }) {
+    const [_taskName, setTaskName] = useState(taskName || '');
+    const [_description, setDescription] = useState(description || '');
+    const { editableRef: taskNameRef } = useEditableRef(taskName || '');
+    const { editableRef: descRef } = useEditableRef(description || '');
     const [dateValue, setDateValue] = useState(() => {
         const date = new Date();
         date.setHours(23, 59);
         return date;
     });
     const [priority, setPriority] = useState(4);
-    console.log(dateValue);
     const handleUpdateDueDate = (timestamp) => {
         setDateValue(timestamp);
         document.body.click();
