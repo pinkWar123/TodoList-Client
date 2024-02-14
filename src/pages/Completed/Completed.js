@@ -5,34 +5,39 @@ import { taskRequest } from '~/services/requests';
 
 import styles from './Completed.module.scss';
 import classNames from 'classnames/bind';
+import { usePagination } from '~/hooks';
 
 const cx = classNames.bind(styles);
 function Completed() {
-    const [tasks, setTasks] = useState([]);
-    const [page, setPage] = useState(1);
-    const [numDates, setNumDates] = useState();
-    const step = 2;
-    const [pageSize, setPageSize] = useState(step);
-    console.log(tasks);
-    useEffect(() => {
-        const fetchNumDates = async () => {
-            const response = await taskRequest.getCompletedTasksNumDates();
-            if (response && response.status === 200) {
-                setNumDates(response.data);
-            }
-        };
-        fetchNumDates();
-    }, []);
-    useEffect(() => {
-        const fetchTasks = async () => {
-            const response = await taskRequest.getCompletedTasks({ page, pageSize });
-            console.log(response);
-            if (response && response.status === 200) {
-                setTasks(response.data);
-            }
-        };
-        fetchTasks();
-    }, []);
+    // const [tasks, setTasks] = useState([]);
+    // const [page, setPage] = useState(1);
+    // const [numDates, setNumDates] = useState();
+    // const pageSize = 2;
+    const { getCompletedTasksNumDates, getCompletedTasks } = taskRequest;
+    const { fetchMoreTasks, isLastPage, tasks } = usePagination({
+        getNumDates: getCompletedTasksNumDates,
+        getTasks: getCompletedTasks,
+        pageSize: 2,
+    });
+    // useEffect(() => {
+    //     const fetchNumDates = async () => {
+    //         const response = await taskRequest.getCompletedTasksNumDates();
+    //         if (response && response.status === 200) {
+    //             setNumDates(response.data);
+    //         }
+    //     };
+    //     fetchNumDates();
+    // }, []);
+    // useEffect(() => {
+    //     const fetchTasks = async () => {
+    //         const response = await taskRequest.getCompletedTasks({ page, pageSize });
+    //         console.log(response);
+    //         if (response && response.status === 200) {
+    //             setTasks(response.data);
+    //         }
+    //     };
+    //     fetchTasks();
+    // }, []);
     const renderCompletedTasks = () => {
         if (tasks && tasks.length > 0) {
             return tasks.map((task) => {
@@ -54,21 +59,20 @@ function Completed() {
             });
         }
     };
-    const fetchMoreTasks = async () => {
-        const response = await taskRequest.getCompletedTasks({ page: page + 1, pageSize });
-        console.log(response.data);
-        if (response && response.status === 200) {
-            if (Array.isArray(response.data) && response.data.length > 0) {
-                setTasks((prev) => [...prev, ...response.data]);
-                setPage((prev) => prev + 1);
-            }
-            // setPageSize((prev) => prev + step);
-        }
-    };
+    // const fetchMoreTasks = async () => {
+    //     const response = await taskRequest.getCompletedTasks({ page: page + 1, pageSize });
+    //     console.log(response.data);
+    //     if (response && response.status === 200) {
+    //         if (Array.isArray(response.data) && response.data.length > 0) {
+    //             setTasks((prev) => [...prev, ...response.data]);
+    //             setPage((prev) => prev + 1);
+    //         }
+    //     }
+    // };
     return (
         <div>
             {renderCompletedTasks()}
-            {page * pageSize < numDates && (
+            {isLastPage && (
                 <div className={cx('see-more')} onClick={async () => await fetchMoreTasks()}>
                     See more dates ...
                 </div>

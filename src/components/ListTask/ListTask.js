@@ -11,7 +11,6 @@ const cx = classNames.bind(styles);
 function ListTask({ tasks, setTasks, index, fetchTasks }) {
     const [updateModal, setUpdateModal] = useState(false);
     const handleCompleteTask = async (index) => {
-        const { taskName, description, dueDate, priority } = tasks[index];
         const response = await taskRequest.completeTask({
             _id: tasks[index]._id,
         });
@@ -69,17 +68,3 @@ function ListTask({ tasks, setTasks, index, fetchTasks }) {
 }
 
 export default ListTask;
-
-/**
-[
-    {
-        date: Date1,
-        tasks: [task1, task2, task3, task4, task5, task6]
-    },
-    {
-        date: Date2,
-        tasks: [task1, task2, task3, task4]
-    },
-    ...
-]
- */

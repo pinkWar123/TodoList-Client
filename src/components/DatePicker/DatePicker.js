@@ -1,9 +1,8 @@
 import { OverlayTrigger } from 'react-bootstrap';
 import DatePickerContent from './DatePickerContent';
 import { useState } from 'react';
-import { dateRequest, taskRequest } from '~/services/requests';
+import { dateRequest } from '~/services/requests';
 import { toast } from 'react-toastify';
-import useTaskContext from '~/context/TaskContext/TaskConsumer';
 import { DateDiv, DueDateDiv } from './DateDiv';
 
 function DatePicker({ task, setTasks, fetchTasks }) {

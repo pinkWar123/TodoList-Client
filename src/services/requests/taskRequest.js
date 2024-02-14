@@ -56,7 +56,7 @@ const getCompletedTasksNumDates = async () => {
 
 const getUpcomingTasks = async ({ page, pageSize }) => {
     try {
-        const response = await request.get(endpoint + '/upcoming');
+        const response = await request.get(endpoint + '/upcoming', { params: { page, pageSize } });
         return response;
     } catch (err) {
         console.log(err);
