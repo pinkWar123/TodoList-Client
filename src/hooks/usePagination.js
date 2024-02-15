@@ -25,7 +25,7 @@ const usePagination = ({ getNumDates, getTasks, page, setPage, pageSize, tasks, 
 
     useEffect(() => {
         const fetchTasks = async () => {
-            const response = await getTasks({ page, pageSize });
+            const response = await getTasks({ page: _page, pageSize });
             if (response && response.status === 200) {
                 _setTasks(response.data);
             }
@@ -34,7 +34,7 @@ const usePagination = ({ getNumDates, getTasks, page, setPage, pageSize, tasks, 
     }, []);
 
     const fetchMoreTasks = async () => {
-        const response = await getTasks({ page: page + 1, pageSize });
+        const response = await getTasks({ page: _page + 1, pageSize });
         if (response && response.status === 200) {
             if (Array.isArray(response.data) && response.data.length > 0) {
                 _setTasks((prev) => [...prev, ...response.data]);
@@ -43,9 +43,9 @@ const usePagination = ({ getNumDates, getTasks, page, setPage, pageSize, tasks, 
         }
     };
 
-    const isLastPage = page * pageSize < numDates;
+    const isLastPage = _page * pageSize < numDates;
     console.log(numDates);
-    return { fetchMoreTasks, isLastPage, tasks: _tasks, setTasks: _setTasks, page: _page, pageSize: _setPage };
+    return { fetchMoreTasks, isLastPage, tasks: _tasks, setTasks: _setTasks, page: _page, setPage: _setPage, pageSize };
 };
 
 export default usePagination;
