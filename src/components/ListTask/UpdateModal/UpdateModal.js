@@ -29,20 +29,6 @@ function UpdateModal({ show, onHide, index, tasks, setTasks, fetchTasks }) {
             toast.success('Complete task!');
         }
         onHide();
-        // const { taskName, description, dueDate, priority } = task;
-        // const response = await taskRequest.updateTask({
-        //     _id: task._id,
-        //     task: { taskName, description, dueDate, priority, status: 1 },
-        // });
-        // if (response && response.status === 200) {
-        //     setTasks((prev) => {
-        //         if (prev.length > 0) {
-        //             return prev.filter((_, _index) => _index !== index);
-        //         }
-        //     });
-        //     toast.success('Complete task!');
-        // }
-        // onHide();
     };
 
     const handleUpdateTask = async ({ taskName, description, dueDate, status }) => {

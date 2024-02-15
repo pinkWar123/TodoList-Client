@@ -9,13 +9,21 @@ import AddTaskEdit from './AddTaskEdit';
 const cx = classNames.bind(styles);
 
 function AddTaskModal({ show, onHide }) {
-    const { setTasks } = useTaskContext();
+    const { setTasks, setUpcomingTasks, upcomingPage, upcomingPageSize } = useTaskContext();
     const handleAddTask = async (currentTask) => {
         const value = currentTask;
         const response = await taskRequest.createNewTask(value);
         if (response) {
-            const newTasks = await taskRequest.getTodayTasks();
-            setTasks(newTasks.data);
+            const fetchTodayTasks = async () => {
+                const newTasks = await taskRequest.getTodayTasks();
+                setTasks(newTasks.data);
+            };
+
+            const fetchUpcomingTasks = async () => {
+                const newTasks = await taskRequest.getUpcomingTasks({ page: upcomingPage, pageSize: upcomingPageSize });
+                setUpcomingTasks(newTasks.data);
+            };
+            await Promise.all([fetchTodayTasks(), fetchUpcomingTasks()]);
             onHide();
             toast.success('Add task successfully');
         }

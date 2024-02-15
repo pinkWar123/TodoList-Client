@@ -1,8 +1,17 @@
 import { useEffect, useState } from 'react';
 
-const usePagination = ({ getNumDates, getTasks, pageSize }) => {
-    const [tasks, setTasks] = useState([]);
-    const [page, setPage] = useState(1);
+const usePagination = ({ getNumDates, getTasks, page, setPage, pageSize, tasks, setTasks }) => {
+    let [_tasks, _setTasks] = useState([]);
+    if (tasks) {
+        _tasks = tasks;
+        _setTasks = setTasks;
+    }
+
+    let [_page, _setPage] = useState(1);
+    if (page) {
+        _page = page;
+        _setPage = setPage;
+    }
     const [numDates, setNumDates] = useState();
     useEffect(() => {
         const fetchNumDates = async () => {
@@ -17,9 +26,8 @@ const usePagination = ({ getNumDates, getTasks, pageSize }) => {
     useEffect(() => {
         const fetchTasks = async () => {
             const response = await getTasks({ page, pageSize });
-            console.log(response);
             if (response && response.status === 200) {
-                setTasks(response.data);
+                _setTasks(response.data);
             }
         };
         fetchTasks();
@@ -27,18 +35,17 @@ const usePagination = ({ getNumDates, getTasks, pageSize }) => {
 
     const fetchMoreTasks = async () => {
         const response = await getTasks({ page: page + 1, pageSize });
-        console.log(response.data);
         if (response && response.status === 200) {
             if (Array.isArray(response.data) && response.data.length > 0) {
-                setTasks((prev) => [...prev, ...response.data]);
-                setPage((prev) => prev + 1);
+                _setTasks((prev) => [...prev, ...response.data]);
+                _setPage((prev) => prev + 1);
             }
         }
     };
 
     const isLastPage = page * pageSize < numDates;
-
-    return { fetchMoreTasks, isLastPage, tasks, setTasks, page, pageSize };
+    console.log(numDates);
+    return { fetchMoreTasks, isLastPage, tasks: _tasks, setTasks: _setTasks, page: _page, pageSize: _setPage };
 };
 
 export default usePagination;
