@@ -1,7 +1,6 @@
 import { Modal } from 'react-bootstrap';
 import CheckBox from '~/components/CheckBox';
 import Comment from '~/components/Comment';
-import useTaskContext from '~/context/TaskContext/TaskConsumer';
 
 import styles from './UpdateModal.module.scss';
 import classNames from 'classnames/bind';
@@ -20,18 +19,13 @@ function UpdateModal({ show, onHide, index, tasks, setTasks, fetchTasks }) {
         const _priority = tasks[index].priority || 4;
         return _priority;
     });
-    const handleCompleteTask = async () => {
-        const { taskName, description, dueDate, priority } = task;
-        const response = await taskRequest.updateTask({
-            _id: task._id,
-            task: { taskName, description, dueDate, priority, status: 1 },
+    const handleCompleteTask = async (index) => {
+        const response = await taskRequest.completeTask({
+            _id: tasks[index]._id,
         });
         if (response && response.status === 200) {
-            setTasks((prev) => {
-                if (prev.length > 0) {
-                    return prev.filter((_, _index) => _index !== index);
-                }
-            });
+            const response = await fetchTasks();
+            setTasks(response.data);
             toast.success('Complete task!');
         }
         onHide();
@@ -44,21 +38,16 @@ function UpdateModal({ show, onHide, index, tasks, setTasks, fetchTasks }) {
         });
         if (response && response.status === 200) {
             const tasks = await fetchTasks();
-            console.log(tasks);
             setTasks(tasks);
         }
     };
     const handleUpdatePriority = async (index) => {
         const response = await priorityRequest.postPriority({ taskId: task._id, priority: index + 1 });
         if (response && response.status === 200) {
-            setTasks((prev) => {
-                return prev.map((item) => {
-                    if (item._id === task._id) {
-                        item.priority = index + 1;
-                    }
-                    return item;
-                });
-            });
+            const tasks = await fetchTasks();
+            if (tasks && tasks.status === 200) {
+                setTasks(tasks.data);
+            }
             setPriority(index + 1);
             toast.success('Update priority successfully');
             document.body.click();

@@ -50,7 +50,7 @@ function Today() {
             </ul>
 
             <div style={{ marginTop: '32px' }}>
-                <h6>{formatDate()}</h6>
+                <h6>{formatDate(new Date())}</h6>
                 <div className={cx('num-task-wrapper')}>
                     <Icon.BorderedCheckIcon />
                     <div className={cx('num-task')}>{tasks ? tasks.length : 0} tasks</div>
